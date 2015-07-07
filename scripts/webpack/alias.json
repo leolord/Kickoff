@@ -1,0 +1,6 @@
+{
+  "jquery": "jquery/dist/jquery.min.js",
+  "zepto": "zepto/zepto.min.js",
+  "underscore": "underscore/underscore-min.js",
+  "backbone": "backbone/backbone.js"
+}

@@ -1,0 +1,22 @@
+<%
+if(page.title    === undefined)page.title = 'title';
+if(page.desc     === undefined)page.desc = '';
+if(page.author   === undefined)page.author = '吴建涛 <fortomorrow@163.com>';
+if(page.keywords === undefined)page.keywords = '';
+%>
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta lang="zh">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title><%=page.title%></title>
+    <meta name="robots" content="index,follow">
+    <link href="//www.amcare.com.cn/favicon.ico" rel="apple-touch-icon-precomposed">
+    <meta name="description" content="<%=page.desc%>">
+    <meta name="keywords" content="<%=page.keywords%>">
+    <meta name="author" content="<%=page.author%>">
+    <base target="_blank">
+  </head>
+  <body>

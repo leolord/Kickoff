@@ -1,0 +1,36 @@
+<%
+if(page.title    === undefined)page.title = 'title';
+if(page.desc     === undefined)page.desc = '';
+if(page.author   === undefined)page.author = '';
+if(page.keywords === undefined)page.keywords = '';
+%>
+<!doctype html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title><%=page.title%></title>
+    <meta name="robots" content="index,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="<%=page.desc%>">
+    <meta name="keywords" content="<%=page.keywords%>">
+    <meta name="author" content="<%=page.author%>">
+    <script>
+! function() { function a() { document.documentElement.style.fontSize = document.documentElement.clientWidth / 16 + "px" } var b = null; window.addEventListener("resize", function() { clearTimeout(b), b = setTimeout(a, 300) }, !1), a() }(window);
+    </script>
+  </head>
+  <body>
+
+

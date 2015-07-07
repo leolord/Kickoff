@@ -1,0 +1,69 @@
+{
+  "name": "Kickoff",
+  "version": "1.0.0",
+  "description": "项目名称",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "吴建涛",
+  "email": "fortomorrow@163.com",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer-loader": "^2.0.0",
+    "babel-core": "^5.6.15",
+    "babel-loader": "^5.3.1",
+    "babel-runtime": "^5.6.15",
+    "bundle-loader": "^0.5.4",
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.9.2",
+    "css-loader": "^0.12.0",
+    "del": "^1.2.0",
+    "ejs-loader": "^0.2.1",
+    "eslint": "^0.22.1",
+    "eslint-loader": "^0.12.0",
+    "file-loader": "^0.8.1",
+    "gulp": "^3.9.0",
+    "gulp-copy": "0.0.2",
+    "gulp-ejs": "^1.1.0",
+    "gulp-less": "^3.0.3",
+    "gulp-minify-html": "^1.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.4",
+    "gulp-webpack": "^1.4.0",
+    "image-webpack-loader": "^1.6.1",
+    "imagemin": "^3.2.0",
+    "less": "^2.5.0",
+    "less-loader": "^2.2.0",
+    "less-plugin-autoprefix": "^1.4.1",
+    "less-plugin-clean-css": "^1.5.0",
+    "node-libs-browser": "^0.5.2",
+    "source-map-loader": "^0.1.4",
+    "style-loader": "^0.12.0",
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leolord/Kickoff.git"
+  },
+  "keywords": [
+    "关键字"
+  ],
+  "path": {
+    "src": "app",
+    "vendor": "vendor",
+    "template": "template",
+    "assets": [
+      "img/*",
+      "img/**/*"
+    ],
+    "globalLibs": [
+      "bower_components/zepto/zepto.min.js"
+    ],
+    "dist": "dist"
+  },
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}
