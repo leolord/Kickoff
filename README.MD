@@ -48,7 +48,7 @@
 ### 初始化项目目录
 ```
 ProjectName=MyProject #项目名称＃
-git clone https://git.oschina.net/leolord/Kickoff.git $ProjectName
+git clone https://github.com/leolord/Kickoff.git $ProjectName
 cd $ProjectName
 npm install
 bower install
