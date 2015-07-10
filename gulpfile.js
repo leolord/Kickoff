@@ -15,7 +15,7 @@ var plugins = {
   min                  : require('gulp-minify-html'),
   less                 : require('gulp-less'),
   rename               : require('gulp-rename'),
-  webpack              : require('gulp-webpack'),
+  webpack              : require('webpack-stream'),
   webpackCli           : require('webpack'),
   WebpackDevServer     : require('webpack-dev-server'),
   autoprefix           : new LessPluginAutoprefix({ browsers: ['> 5%', 'last 3 versions']}),
