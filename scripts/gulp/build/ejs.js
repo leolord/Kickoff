@@ -8,12 +8,11 @@ module.exports = function(gulp, plugins, ts){
   return function(){
 
     return gulp.src(ejsGlob)
+               .pipe(plugins.plumber())
                .pipe(plugins.ejs({
                  ts : ts
                }))
-               .on('error', plugins.gutil.log)
                .pipe(plugins.min({ empty: true, conditionals:true}))
-               .on('error', plugins.gutil.log)
                .pipe(gulp.dest(pathCfg.dist));
   };
 
