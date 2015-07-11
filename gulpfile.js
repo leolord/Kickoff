@@ -8,18 +8,19 @@ var LessPluginAutoprefix = require('less-plugin-autoprefix');
 var LessPluginCleanCSS   = require('less-plugin-clean-css');
 
 var plugins = {
-  del                  : require('del'),
-  gutil                : require('gulp-util'),
-  ejs                  : require('gulp-ejs'),
+  autoprefix           : new LessPluginAutoprefix({ browsers: ['> 5%', 'last 3 versions']}),
+  cleancss             : new LessPluginCleanCSS({ advanced: true }),
   copy                 : require('gulp-copy'),
-  min                  : require('gulp-minify-html'),
+  del                  : require('del'),
+  ejs                  : require('gulp-ejs'),
   less                 : require('gulp-less'),
+  min                  : require('gulp-minify-html'),
+  plumber              : require('gulp-plumber'),
   rename               : require('gulp-rename'),
+  sequence             : require('gulp-sequence'),
   webpack              : require('webpack-stream'),
   webpackCli           : require('webpack'),
-  WebpackDevServer     : require('webpack-dev-server'),
-  autoprefix           : new LessPluginAutoprefix({ browsers: ['> 5%', 'last 3 versions']}),
-  cleancss             : new LessPluginCleanCSS({ advanced: true })
+  WebpackDevServer     : require('webpack-dev-server')
 };
 
 gulp.task('show:config',   require('./scripts/gulp/show-config.js')(gulp, plugins, webpackConfig));
@@ -36,5 +37,5 @@ gulp.task('watch:webpack', require('./scripts/gulp/watch/webpack.js')(gulp, plug
 
 
 gulp.task('build',   ['build:webpack', 'build:less', 'build:ejs', 'build:copy']);
-gulp.task('dev',     ['build', 'watch:less', 'watch:webpack', 'watch:ejs', 'watch:copy']);
-gulp.task('default', ['build']);
+gulp.task('default', plugins.sequence('clean', 'build'));
+gulp.task('dev',     plugins.sequence('default', ['watch:less', 'watch:webpack', 'watch:ejs', 'watch:copy']));

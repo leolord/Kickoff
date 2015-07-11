@@ -10,8 +10,8 @@ module.exports = function(gulp, plugins, ts) {
   return function() {
 
     return gulp.src(lessGlob)
+               .pipe(plugins.plumber())
                .pipe( plugins.less({ plugins: [plugins.autoprefix, plugins.cleancss] }))
-               .on('error', plugins.gutil.log)
                .pipe(plugins.rename(function(cssFile){
                  cssFile.basename += '.' + ts;
                }))
