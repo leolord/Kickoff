@@ -8,7 +8,7 @@
 * less
 * autoprefix
 * uglify
-* jshint
+* eslint
 * cleancss
 
 ## ES6与React
@@ -67,7 +67,7 @@ bower install
 2. 在`template`目录下创建一个同名的ejs文件，建议将`index.ejs`文件作为模板。
   * 在新建的ejs文件中，需要配置`page`变量，其中包含了页面相关信息；
   * 因为编译完成的ejs文件保存在dist目录中，所以引用js和css的路径，要以dist为根路径。
-  ＊时间戳变量`ts`是每次编译的时候，在`gulpfile.js`中取当前时间获得的，由于编译生成的js和css的命名规则中会引用时间戳，所以请按照`index.ejs`中的引入脚本的格式引入脚本和css。
+  * 时间戳变量`ts`是每次编译的时候，在`gulpfile.js`中取当前时间获得的，由于编译生成的js和css的命名规则中会引用时间戳，所以请按照`index.ejs`中的引入脚本的格式引入脚本和css。
 
 ### 编译
 
@@ -89,7 +89,7 @@ gulp dev
 之后访问<http://127.0.0.1:8080/> 就可以看到结果了，生成的编译结果存在于<http://127.0.0.1:8080/dist/>目录中，其实你只关心这个目录就可以了。这个命令实质上调用了`webpack-dev-server`。
 
 ### 清理dist目录
-建议每次新建分支的时候清理dist目录，否则dist目录会越来越庞大。
+**注意** 每次执行gulp/gulp dev/gulp build命令的时候，都会自动执行一次gulp clean命令。
 
 ```shell
 gulp clean
