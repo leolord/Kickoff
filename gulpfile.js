@@ -39,3 +39,5 @@ gulp.task('watch:webpack', require('./scripts/gulp/watch/webpack.js')(gulp, plug
 gulp.task('build',   ['build:webpack', 'build:less', 'build:ejs', 'build:copy']);
 gulp.task('default', plugins.sequence('clean', 'build'));
 gulp.task('dev',     plugins.sequence('default', ['watch:less', 'watch:webpack', 'watch:ejs', 'watch:copy']));
+
+gulp.task('page', require('./scripts/gulp/new.js')(gulp, plugins, webpackConfig));
