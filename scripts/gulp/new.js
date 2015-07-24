@@ -1,8 +1,10 @@
 'use strict';
 
-var pathCfg = require('../../package.json').path;
+var cfg     = require('../../package.json');
+var pathCfg = cfg.path;
+var author  = cfg.author || '吴建涛';
 
-var Q        = require('q');
+var Promise  = require('bluebird');
 var inquirer = require('inquirer');
 
 var questions = [
@@ -24,38 +26,60 @@ var questions = [
   }
 ];
 
+
 module.exports = function(gulp, plugins){
   return function(){
-    var deffered = Q.defer();
 
-    inquirer.prompt(questions, function(ans){
-      var counter = 0;
-      var bothComplete = function(){
-        ++counter;
-        if(counter === 2){
-          deffered.resolve();
-        }
-      };
+    var promise = new Promise(function(resolve, reject){
 
-      gulp.src('./scripts/template/' + ans.pageType + '.ejs')
-          .pipe(plugins.plumber())
-          .pipe(plugins.ejs({
-            pageName : ans.pageName
-          }, {
-            ext : '.ejs'
-          }))
-          .pipe(plugins.rename(function(file){
-            file.basename = ans.pageName;
-          }))
-          .pipe(gulp.dest(pathCfg.template))
-          .on('end', bothComplete);
+      inquirer.prompt(questions, function(ans){
+        var ejsOpt = {
+          delimiter : '$',
+          pageName  : ans.pageName,
+          author    : author
+        };
 
-      gulp.src(['./scripts/template/index.js', './scripts/template/index.less'])
-          .pipe(gulp.dest(pathCfg.src + '/' + ans.pageName + '/'))
-          .on('end', bothComplete);
+        var counter = 0;
+        var bothComplete = function(){
+          ++counter;
+          if(counter === 3){
+            resolve();
+          }
+        };
 
+        var assetsEJS = function(file, ext, errorMsg){
+          gulp.src(file)
+              .pipe(plugins.ejs(ejsOpt, {
+                ext   : ext
+              }))
+              .pipe(gulp.dest(pathCfg.src + '/' + ans.pageName + '/'))
+              .on('error', function(){
+                reject(errorMsg);
+              })
+              .on('end', bothComplete);
+        };
+
+        gulp.src('./scripts/template/' + ans.pageType + '.ejs')
+            .pipe(plugins.ejs(ejsOpt, {
+              ext   : '.ejs'
+            }))
+            .pipe(plugins.rename(function(file){
+              file.basename = ans.pageName;
+            }))
+            .pipe(gulp.dest(pathCfg.template))
+            .on('end', bothComplete)
+            .on('error', function(err){
+              reject('Errot in coping ejs template');
+              console.error(err);
+            });
+
+        assetsEJS('./scripts/template/index.js', '.js', 'Error in coping javascript file.');
+        assetsEJS('./scripts/template/index.less', '.less', 'Error in coping less file.');
+
+      });
     });
 
-    return deffered.promise;
+
+    return promise;
   };
 };
