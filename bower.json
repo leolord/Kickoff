@@ -11,9 +11,6 @@
   ],
   "license": "None",
   "dependencies": {
-    "zepto": "~1.1.6",
-    "jquery": "~2.1.4",
-    "underscore": "~1.8.3",
-    "backbone": "~1.1.2"
+    "zepto": "~1.1.6"
   }
 }
