@@ -1,0 +1,21 @@
+<%
+var page = {
+  title  : '<$=pageName$>',
+  desc   : '<$=pageName$>',
+  author : '<$=author$>'
+};
+%>
+<% include layout/h5-head.ejs %>
+
+<link rel="stylesheet" href="<$=pageName$>/index.<%=ts%>.css">
+
+<div class="content">
+  This is index.
+  <div id="example"></div>
+</div>
+
+<script src="vendor/zepto.min.js"></script>
+<script src="commons.<%=ts%>.js"></script>
+<script src="<$=pageName$>/index.<%=ts%>.js"></script>
+
+<% include layout/footer.ejs %>
