@@ -33,8 +33,8 @@ function configEntry(pathCfg, debug, configObj, ts) {
       entryJS = entryJS + '.js';
     } else if(fs.existsSync(entryJS + '.es6.js')){
       entryJS = entryJS + '.es6.js';
-    }else if (fs.existsSync(entryJS + '.coffee')) {
-      entryJS = entryJS + '.coffee';
+    } else if (fs.existsSync(entryJS + '.jsx')) {
+      entryJS = entryJS + '.jsx';
     } else {
       return;
     }
@@ -67,10 +67,6 @@ function configLoader(pathCfg, debug, configObj) {
     test: /\.js$/,
     exclude: [/node_modules/, /bower_components/],
     loader: 'eslint-loader'
-  },
-  {
-    test: /\.coffee$/,
-    loader: 'coffee-loader'
   },
   {
     test: /\.json$/,
