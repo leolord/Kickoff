@@ -18,12 +18,12 @@ var defaultConfig = {
   'vendor': 'vendor'
 };
 
-/* eslint max-paams:[1,4]*/
+/* eslint max-params:[1,4]*/
 function configEntry(pathCfg, debug, configObj, ts) {
   //variables
   var modules = fs.readdirSync(pathCfg.src),
-      entry = {},
-      entryArray = [];
+    entry = {},
+    entryArray = [];
 
   //compute modules' entries
   modules.forEach(function(name) {
@@ -33,8 +33,8 @@ function configEntry(pathCfg, debug, configObj, ts) {
       entryJS = entryJS + '.js';
     } else if(fs.existsSync(entryJS + '.es6.js')){
       entryJS = entryJS + '.es6.js';
-    }else if (fs.existsSync(entryJS + '.coffee')) {
-      entryJS = entryJS + '.coffee';
+    } else if (fs.existsSync(entryJS + '.jsx')) {
+      entryJS = entryJS + '.jsx';
     } else {
       return;
     }
@@ -69,10 +69,6 @@ function configLoader(pathCfg, debug, configObj) {
     loader: 'eslint-loader'
   },
   {
-    test: /\.coffee$/,
-    loader: 'coffee-loader'
-  },
-  {
     test: /\.json$/,
     loader: 'json-loader'
   },
@@ -86,6 +82,10 @@ function configLoader(pathCfg, debug, configObj) {
   {
     test: /\.ejs$/,
     loader: 'ejs-loader'
+  },
+  {
+    test: /\.jade$/,
+    loader: 'jade-loader'
   },
   {
     test: /\.less$/,
@@ -118,9 +118,9 @@ function configPlugin(pathCfg, debug, configObj, ts){
 
 function configResolve(pathCfg, debug, configObj){
   configObj.resolve = {
-      alias: require('./alias.json'),
-      root: ['bower_components', 'node_modules']
-    };
+    alias: require('./alias.json'),
+    root: ['bower_components', 'node_modules']
+  };
 }
 
 //configuration
@@ -139,7 +139,8 @@ module.exports = function(_pathCfg, debug, _ts) {
       contentBase: './'
     },
 
-    devtool: debug ? '#source-map' : false
+    devtool: debug ? '#source-map' : false,
+    debug : debug
   };
 
   configEntry(pathCfg, debug, configObj, ts);
