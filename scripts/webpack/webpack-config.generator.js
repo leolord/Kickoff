@@ -18,12 +18,12 @@ var defaultConfig = {
   'vendor': 'vendor'
 };
 
-/* eslint max-paams:[1,4]*/
+/* eslint max-params:[1,4]*/
 function configEntry(pathCfg, debug, configObj, ts) {
   //variables
   var modules = fs.readdirSync(pathCfg.src),
-      entry = {},
-      entryArray = [];
+    entry = {},
+    entryArray = [];
 
   //compute modules' entries
   modules.forEach(function(name) {
@@ -84,6 +84,10 @@ function configLoader(pathCfg, debug, configObj) {
     loader: 'ejs-loader'
   },
   {
+    test: /\.jade$/,
+    loader: 'jade-loader'
+  },
+  {
     test: /\.less$/,
     loader: 'style!css!autoprefixer?browsers=last 3 version!less-loader'
   },
@@ -114,9 +118,9 @@ function configPlugin(pathCfg, debug, configObj, ts){
 
 function configResolve(pathCfg, debug, configObj){
   configObj.resolve = {
-      alias: require('./alias.json'),
-      root: ['bower_components', 'node_modules']
-    };
+    alias: require('./alias.json'),
+    root: ['bower_components', 'node_modules']
+  };
 }
 
 //configuration
@@ -135,7 +139,8 @@ module.exports = function(_pathCfg, debug, _ts) {
       contentBase: './'
     },
 
-    devtool: debug ? '#source-map' : false
+    devtool: debug ? '#source-map' : false,
+    debug : debug
   };
 
   configEntry(pathCfg, debug, configObj, ts);
