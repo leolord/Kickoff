@@ -1,33 +1,37 @@
 #基于WebPack的web项目模板
 
-本项目是基于WebPack编译的web项目模板，其中强制要求使用lesscss。而对于JS比较宽松，可以使用原生的JavaScript或者CoffeeScript。
+本项目是基于WebPack编译的web项目模板，其中强制要求使用lesscss。而对于JS比较宽松，可以使用原生的JavaScript、ES6格式的JavaScript或者JSX。
 
-## 目前支持的功能
-
-* coffee
-* less
-* autoprefix
+## 目前支持的特性
+* jsx
+* es6
+* ejs
+* jade
 * uglify
 * eslint
+* less
+* autoprefix
 * cleancss
+* minify-html
 
 ## ES6与React
-  目前已经全面支持es6和react，不过为了尽量缩短编译时间，es6的文件必须命名为`*.es6.js`，React的用到jsx语法的文件必须命名为`*.jsx`。ES 6特性的支持是由`bebel`提供的，默认设置的是最大可能的支持新的语法特性。
+  目前已经全面支持es6和react，不过为了尽量缩短编译时间，es6的文件必须命名为`*.es6.js`，React的用到jsx语法的文件必须命名为`*.jsx`。ES 6和JSX的语法支持是由`bebel`提供的，默认设置的是最大可能的支持新的语法特性，也就是说最新的ES 7中得部分语法也可以尝试使用。
 
 ## 关于那个恶心的`.eslintrc`文件
   `eslint`是目前功能最全面的js语法检查器，它支持茫茫多的检查规则。我们希望最大程度的利用`eslint`保证我们代码的规范性和可读性，所以我们几乎在`.eslintrc`文件中设置了所有检查规则。如果这些规则确实对你造成了困扰，建议通过[inline](http://eslint.org/docs/user-guide/configuring)的方式配置单个文件的语法检查规则。直接修改全局的`.eslintrc`文件其实是降低了对于自己代码的要求。
 
 ## 目录结构约定
 
-所有JavaScript和Less文件应当放在app目录中，每个页面对应app目录中的一个文件夹，其中index.js、index.es6.js，或者index.coffee是页面的入口脚本，index.less是页面样式的入口，我们不考虑支持用原生css编写页面样式，因为原生css不利于模块化开发。
+所有JavaScript和Less文件应当放在app目录中，每个页面对应app目录中的一个文件夹，其中index.js、index.es6.js，或者index.jsx是页面的入口脚本，index.less是页面样式的入口，我们不考虑支持用原生css编写页面样式，因为原生css不利于模块化开发。
 
 ```
  ▾ app/
   ▾ {{pageName}}/             /*页面assets目录*/
       index.js                /*页面入口脚本*/
       index.less              /*页面入口样式*/
- ▾ template/                  /*页面html目录，我们强制要求使用ejs模版(合格的程序员，应该避免任何形式的代码重复)*/
-    {{pageName}}.ejs          /*页面文件*/
+ ▾ template/                  /*页面html目录，我们强制建议使用jade模版(合格的程序员，应该避免任何形式的代码重复)*/
+    {{pageName}}.jade         /*使用jade模板的页面文件*/
+    {{pageName}}.ejs          /*使用ejs模板的页面文件*/
  ▸ img/                       /*图片文件夹，这个文件夹的名称不做约束，不过需要在package.json中配置这些需要拷贝到dist根目录下的文件的glob*/
  ▸ scripts/                   /*gulp各个任务的脚本和webpack的配置文件*/
  ▾ dist/                      /*assets编译输出目录，你不应手动修改其中任何文件*/
@@ -57,7 +61,7 @@ bower install
 ### 修改必要的字段
 包括：
 
-1. `package.json` 中项目名称、版本号、git仓库地址、关键字、作者的姓名和联系方式
+1. `package.json` 中项目名称、版本号、git仓库地址、关键字、作者的姓名和联系方式等
 2. `bower.json` 中项目名称、关键字、项目介绍、版本号
 3. 如果你用bower安装了其他的包，最好在`scripts/webpack/alias.json`中配置下，这样在页面中引用模块就会更方便
 
@@ -114,16 +118,27 @@ gulp clean
 * 为什么不支持sass？  
   因为less简单，sass必须安装ruby等工具，而在天朝，这一点可能会拦住很多初学者；less只需要NodeJS环境就可以了。虽然我认可sass比less强大，但是我同样认为安装ruby等一堆工具划不来。
 
-* 为什么不放弃bower，转投npm?  
+* 为什么不放弃bower，转投npm？  
   根据大牛们的说法，bower有种种缺陷，而如果使用npm的话，能够得到的好处至少有： 
   1. npm的API比bower稳定； 
   2. 对于CommonJS语法有天然的支持，不需要再单独配置依赖库的路径，也不需要require相对路径； 
   3. npm下载的包更小。  
+  4. webpack能够编译出更小的代码，这也是webpack推荐的方式。
   
   对于我们而言，我们依旧不会彻底放弃bower，因为通过bower下载完整的git仓库（接近完整）可以保证两点：
   
     1. 对于Less Mixin这样的类库，可以有很好的支持； 
     2. npm下载的文件比较少，我们担心如果我们只是依赖一个库中的一个源文件，npm会下载编译完成的完整的包，导致我们最终打包出来的文件太大。
+    3. 对于多个页面会用到的第三方脚本，我们希望其能够在浏览器端最大限度的缓存，不会因为未来的某次编译造成缓存失效，所以还是会在HTML中直接引入一些通用的第三方的库，比如jQuery、zepto等。
 
-* 为什么不在脚本后面增加类似`?ts=timestamp`这样的参数保证脚本/样式能够马上生效?  
+  总体上而言，我们希望尽可能的使用npm，而不是bower。
+
+* 为什么不在脚本后面增加类似`?ts=timestamp`这样的参数保证新部署的脚本/样式能够马上生效?  
   通过在URL后面增加`?t=timestamp`的方式，可能造成一些浏览器无法缓存脚本。
+
+* 为什么选择Jade这样和HTML的语法几乎完全不同的模板引擎作为首选？  
+  原因有三：
+  1. 期初这个项目优先使用EJS模板，但是之后发现EJS模板中JS和HTML代码耦合太严重，而且HTML本身的语法很臃肿，也很混乱，所以选择了更加干净的Jade引擎。
+  2. 我习惯使用vim+Syntastic，为了语法高亮，我必须将EJS的文件格式设置为`html`，但是这个时候，Syntastic会爆出一堆没有用的错误信息，让人看上去很烦，同事语法高亮也不尽如人意。
+  3. Jade的语法要比ejs强大，当然副作用是编译出来的结果文件(JavaScript文件)稍微大一些。
+  4. Jade会默认转义变量，这样安全性更高。

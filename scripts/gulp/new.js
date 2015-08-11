@@ -1,6 +1,7 @@
 'use strict';
 
 var cfg     = require('../../package.json');
+var path    = require('path');
 var pathCfg = cfg.path;
 var author  = cfg.author || '吴建涛';
 
@@ -16,66 +17,72 @@ var questions = [
       return /^[a-zA-Z][-a-zA-Z0-9\s]*$/.test(input) ? true : '非法页面名称';
     }
   }, {
-    type   : 'list',
-    name   : 'pageType',
+    type    : 'list',
+    name    : 'pageType',
     message : '页面类型',
     choices : [
       'h5',
       'pc'
     ]
+  }, {
+    type    : 'list',
+    name    : 'template',
+    message : '模板类型',
+    choices : [
+      'jade',
+      'ejs'
+    ]
   }
 ];
 
-
 module.exports = function(gulp, plugins){
+
   return function(){
 
     var promise = new Promise(function(resolve, reject){
 
       inquirer.prompt(questions, function(ans){
-        var ejsOpt = {
-          delimiter : '$',
-          pageName  : ans.pageName,
-          author    : author
-        };
+        var templateName = './scripts/template/' + ans.pageType + '.' + ans.template;
 
+        var totalCopy = 0;
         var counter = 0;
         var bothComplete = function(){
           ++counter;
-          if(counter === 3){
+          if(counter === totalCopy){
             resolve();
           }
         };
 
-        var assetsEJS = function(file, ext, errorMsg){
+        /*eslint max-params:[1, 4]*/
+        var copyFile = function(file, dest, errorMsg, rename){
+          ++totalCopy;
+
           gulp.src(file)
-              .pipe(plugins.ejs(ejsOpt, {
-                ext   : ext
+              .pipe(plugins.replace('<$=pageName$>', ans.pageName))
+              .pipe(plugins.replace('<$=author$>', author))
+              .pipe(plugins.replace('<$=date$>', new Date().toString()))
+              .pipe(plugins.rename(function(targetFile){
+                if(rename){
+                  targetFile.basename = rename.name;
+                  targetFile.extname = rename.ext;
+                }
               }))
-              .pipe(gulp.dest(pathCfg.src + '/' + ans.pageName + '/'))
-              .on('error', function(){
+              .pipe(gulp.dest(dest))
+              .on('end', bothComplete)
+              .on('error', function(err){
                 reject(errorMsg);
-              })
-              .on('end', bothComplete);
+                console.error(err);
+              });
         };
 
-        gulp.src('./scripts/template/' + ans.pageType + '.ejs')
-            .pipe(plugins.ejs(ejsOpt, {
-              ext   : '.ejs'
-            }))
-            .pipe(plugins.rename(function(file){
-              file.basename = ans.pageName;
-            }))
-            .pipe(gulp.dest(pathCfg.template))
-            .on('end', bothComplete)
-            .on('error', function(err){
-              reject('Errot in coping ejs template');
-              console.error(err);
-            });
+        var srcDir = path.join(pathCfg.src, ans.pageName);
 
-        assetsEJS('./scripts/template/index.js', '.js', 'Error in coping javascript file.');
-        assetsEJS('./scripts/template/index.less', '.less', 'Error in coping less file.');
+        copyFile('./scripts/template/index.js', srcDir, 'Error in coping javascript file.');
+        copyFile('./scripts/template/index.less', srcDir, 'Error in coping less file.');
 
+        copyFile(templateName, pathCfg.template,
+                 'Error in coping template file',
+                 {name : ans.pageName, ext: '.' + ans.template});
       });
     });
 
