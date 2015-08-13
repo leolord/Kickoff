@@ -49,7 +49,7 @@
     "dot-notation"               : [1, {"allowKeywords": false}],
     "eqeqeq"                     : [2, "smart"],
     "guard-for-in"               : 1,
-    "indent"                     : [2, 2],
+    "indent"                     : [1, 2],
     "max-depth"                  : [1, 3],
     "max-len"                    : [1, 120, 2],
     "max-nested-callbacks"       : [2, 3],
