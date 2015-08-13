@@ -3,7 +3,7 @@
 var cfg     = require('../../package.json');
 var path    = require('path');
 var pathCfg = cfg.path;
-var author  = cfg.author || '吴建涛';
+var author  = cfg.author || '';
 
 var Promise  = require('bluebird');
 var inquirer = require('inquirer');
@@ -36,6 +36,11 @@ var questions = [
 ];
 
 module.exports = function(gulp, plugins){
+
+  plugins.gitConfig(function(err, config){
+    if(err)return;
+    author = config.user.name + '(' + config.user.email + ')';
+  });
 
   return function(){
 

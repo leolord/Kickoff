@@ -13,8 +13,8 @@ module.exports = function(gulp, plugins, ts) {
                .pipe(plugins.plumber())
                .pipe( plugins.less({ plugins: [plugins.autoprefix, plugins.cleancss] }))
                .pipe(plugins.rename(function(cssFile){
-                 cssFile.basename += '.' + ts;
-               }))
+                  cssFile.basename += '.' + ts;
+                }))
                .pipe(gulp.dest(lessOutputDir));
   };
 

@@ -13,6 +13,7 @@ var plugins = {
   copy                 : require('gulp-copy'),
   del                  : require('del'),
   ejs                  : require('gulp-ejs'),
+  gitConfig            : require('git-config'),
   jade                 : require('gulp-jade'),
   less                 : require('gulp-less'),
   min                  : require('gulp-minify-html'),
