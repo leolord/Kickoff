@@ -27,7 +27,7 @@ html(lang='zh-cms-Hans')
     meta(name='format-detection',content='telephone=no, email=no')
     meta(name='screen-orientation',content='portrait')
     title #{page.title}
-    link(rel="stylesheet",href="#{page.name}/index.#{ts}.css")
+    link(rel="stylesheet",href="#{page.name}/index.css")
     script.
       !function(){function a(){document.documentElement.style.fontSize=document.documentElement.clientWidth/10+"px"}var b=null;window.addEventListener("resize",function(){clearTimeout(b),b=setTimeout(a,300)},!1),a()}(window);
   body
@@ -37,6 +37,6 @@ html(lang='zh-cms-Hans')
     block main
 
     block footer
-      script(src="commons.#{ts}.js")
-      script(src="#{page.name}/index.#{ts}.js")
+      script(src="commons.js")
+      script(src="#{page.name}/index.js")
 

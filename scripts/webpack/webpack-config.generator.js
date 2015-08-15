@@ -19,7 +19,7 @@ var defaultConfig = {
 };
 
 /* eslint max-params:[1,4]*/
-function configEntry(pathCfg, debug, configObj, ts) {
+function configEntry(pathCfg, debug, configObj) {
   //variables
   var modules = fs.readdirSync(pathCfg.src),
     entry = {},
@@ -48,8 +48,8 @@ function configEntry(pathCfg, debug, configObj, ts) {
   configObj.output = {
     path: path.resolve(pathCfg.dist),
     publicPath: './',
-    filename: '[name]/index.' + ts + '.js',
-    chunkFilename: [pathCfg.vendor, '[name].' + ts + '.js'].join(path.sep)
+    filename: debug ? '[name]/index.js' : '[name]/index.[chunkhash].js',
+    chunkFilename: [pathCfg.vendor, debug ? '[name].js' : '[name].[chunkhash].js'].join(path.sep)
   };
 }
 
@@ -97,11 +97,11 @@ function configLoader(pathCfg, debug, configObj) {
   }];
 }
 
-function configPlugin(pathCfg, debug, configObj, ts){
+function configPlugin(pathCfg, debug, configObj){
   if(debug){
     configObj.plugins = [
-      new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])), 
-      new CommonsChunkPlugin('commons.' + ts + '.js')
+      new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
+      new CommonsChunkPlugin('commons.js')
     ];
   } else {
     configObj.plugins = [
@@ -110,8 +110,11 @@ function configPlugin(pathCfg, debug, configObj, ts){
           warnings: false
         }
       }), 
-      new webpack.ResolverPlugin( new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main']) ), 
-      new CommonsChunkPlugin('commons.' + ts + '.js')
+      new webpack.ResolverPlugin( new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main']) ),
+      new CommonsChunkPlugin({
+        filename: 'commons.[hash].js',
+        minChunks: 3
+      })
     ];
   }
 }
@@ -124,15 +127,14 @@ function configResolve(pathCfg, debug, configObj){
 }
 
 //configuration
-module.exports = function(_pathCfg, debug, _ts) {
+module.exports = function(_pathCfg, debug) {
 
   var pathCfg = _pathCfg || defaultConfig;
-  var ts = _ts || Date.now();
-
 
   var configObj = {
     //这是是gulpFile需要的入口文件列表
-    context: path.resolve('.'),
+    //context: path.resolve('.'),
+    
     module: { },
 
     devServer: {
@@ -143,9 +145,9 @@ module.exports = function(_pathCfg, debug, _ts) {
     debug : debug
   };
 
-  configEntry(pathCfg, debug, configObj, ts);
+  configEntry(pathCfg, debug, configObj);
   configLoader(pathCfg, debug, configObj);
-  configPlugin(pathCfg, debug, configObj, ts);
+  configPlugin(pathCfg, debug, configObj);
   configResolve(pathCfg, debug, configObj);
 
   return configObj;

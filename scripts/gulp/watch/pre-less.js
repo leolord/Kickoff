@@ -11,10 +11,8 @@ module.exports = function(gulp, plugins) {
 
     return gulp.src(lessGlob)
                .pipe(plugins.plumber())
-               .pipe( plugins.less({ plugins: [plugins.autoprefix, plugins.cleancss] }))
-               .pipe(plugins.rev())
+               .pipe( plugins.less({ plugins: [plugins.autoprefix] }))
                .pipe(gulp.dest(lessOutputDir));
   };
-
 };
 
