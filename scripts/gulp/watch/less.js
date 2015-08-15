@@ -7,6 +7,6 @@ module.exports = function(gulp){
   var lessGlob      = require('../globs.js').lessGlob;
 
   return function(){
-    return gulp.watch(lessGlob, ['build:less']);
+    return gulp.watch(lessGlob, ['watch:pre-less']);
   };
 };

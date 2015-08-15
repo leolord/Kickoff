@@ -4,10 +4,14 @@ var webpackCfgGenerator  = require('../webpack/webpack-config.generator.js');
 
 var pathCfg = require('../../package.json').path;
 
-module.exports = function(ts){
+module.exports = function(){
   return {
-    debug   : webpackCfgGenerator(pathCfg, true, ts),
-    release : webpackCfgGenerator(pathCfg, false, ts)
+    debug   : function(){
+      return webpackCfgGenerator(pathCfg, true);
+    },
+    release : function(){
+      return webpackCfgGenerator(pathCfg, false);
+    }
   };
 };
 

@@ -3,10 +3,11 @@
  * */
 'use strict';
 
+var ejsGlob = require('../globs.js').ejsGlob;
+
 module.exports = function(gulp){
-  var ejsGlob = require('../globs.js').ejsGlob;
 
   return function(){
-    return gulp.watch(ejsGlob, ['build:ejs']);
+    return gulp.watch(ejsGlob, ['watch:pre-ejs']);
   };
 };
