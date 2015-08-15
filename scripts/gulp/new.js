@@ -63,9 +63,16 @@ module.exports = function(gulp, plugins){
           ++totalCopy;
 
           gulp.src(file)
-              .pipe(plugins.replace('<$=pageName$>', ans.pageName))
-              .pipe(plugins.replace('<$=author$>', author))
-              .pipe(plugins.replace('<$=date$>', new Date().toString()))
+              .pipe(plugins.frep([{
+                pattern: /<\$=pageName\$>/g,
+                replacement: ans.pageName
+              }, {
+                pattern: /<\$=author\$>/g,
+                replacement: author
+              }, {
+                pattern: /<\$=date\$>/g,
+                replacement: new Date().toString()
+              }]))
               .pipe(plugins.rename(function(targetFile){
                 if(rename){
                   targetFile.basename = rename.name;

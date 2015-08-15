@@ -19,7 +19,6 @@ var plugins = {
   min                  : require('gulp-minify-html'),
   plumber              : require('gulp-plumber'),
   rename               : require('gulp-rename'),
-  replace              : require('gulp-replace'),
   rev                  : require('gulp-rev'),
   sequence             : require('gulp-sequence'),
   webpack              : require('webpack-stream'),
