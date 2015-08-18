@@ -6,7 +6,7 @@
 
 //Node modules
 var path = require('path');
-var fs = require('fs');
+var find = require('find');
 
 //webpack modules
 var webpack = require('webpack');
@@ -21,26 +21,21 @@ var defaultConfig = {
 /* eslint max-params:[1,4]*/
 function configEntry(pathCfg, debug, configObj) {
   //variables
-  var modules = fs.readdirSync(pathCfg.src),
-    entry = {},
+  var entry = {},
     entryArray = [];
 
-  //compute modules' entries
-  modules.forEach(function(name) {
-    var entryJS = ['.', pathCfg.src, name, 'index'].join(path.sep);
+  var files = find.fileSync(/index.(es6\.)?jsx?$/, pathCfg.src);
 
-    if (fs.existsSync(entryJS + '.js')) {
-      entryJS = entryJS + '.js';
-    } else if(fs.existsSync(entryJS + '.es6.js')){
-      entryJS = entryJS + '.es6.js';
-    } else if (fs.existsSync(entryJS + '.jsx')) {
-      entryJS = entryJS + '.jsx';
-    } else {
-      return;
+  files.forEach(function(_filePath){
+
+    var relativePath = path.relative(pathCfg.src, _filePath);
+    var absolutePath = path.resolve(_filePath);
+    var fileDirs = path.dirname(relativePath);
+
+    if(fileDirs.indexOf(path.sep) === -1){
+      entryArray.push(absolutePath);
+      entry[fileDirs] = absolutePath;
     }
-
-    entryArray.push(entryJS);
-    entry[name] = entryJS;
   });
 
   configObj._entryArray = entryArray;
@@ -89,7 +84,7 @@ function configLoader(pathCfg, debug, configObj) {
   },
   {
     test: /\.less$/,
-    loader: 'style!css!autoprefixer?browsers=last 3 version!less-loader'
+    loader: 'style!css!autoprefixer?browsers={browsers:["> 5%", "last 3 version"]}!less-loader'
   },
   {
     test: /\.css$/,
@@ -122,7 +117,8 @@ function configPlugin(pathCfg, debug, configObj){
 function configResolve(pathCfg, debug, configObj){
   configObj.resolve = {
     alias: require('./alias.json'),
-    root: ['bower_components', 'node_modules']
+    root: ['bower_components', 'node_modules'],
+    extensions: ['', '.js', '.es6.js', '.jsx']
   };
 }
 
