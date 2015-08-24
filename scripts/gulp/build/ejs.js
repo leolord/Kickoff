@@ -9,7 +9,7 @@ module.exports = function(gulp, plugins){
     var getRepMap = require('./replace-map.js');
 
     return getRepMap.then(function(repMap){
-      gulp.src(ejsGlob)
+      return gulp.src(ejsGlob)
         .pipe(plugins.plumber())
         .pipe(plugins.ejs())
         .pipe(plugins.frep(repMap))
