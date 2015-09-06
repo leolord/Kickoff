@@ -75,16 +75,16 @@ function configLoader(pathCfg, debug, configObj) {
     ]
   },
   {
-    test: /\.ejs$/,
-    loader: 'ejs-loader'
-  },
-  {
     test: /\.jade$/,
     loader: 'jade-loader'
   },
   {
-    test: /\.less$/,
-    loader: 'style!css!autoprefixer?browsers={browsers:["> 5%", "last 3 version"]}!less-loader'
+    test: /\.scss/,
+    loader: 'style!css!sass?includePaths[]=node_modules'
+  },
+  {
+    test: /\.sass/,
+    loader: 'style!css!sass?indentedSyntax&includePaths[]=node_modules'
   },
   {
     test: /\.css$/,
@@ -95,7 +95,7 @@ function configLoader(pathCfg, debug, configObj) {
 function configPlugin(pathCfg, debug, configObj){
   if(debug){
     configObj.plugins = [
-      new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
+      //new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
       new CommonsChunkPlugin('commons.js')
     ];
   } else {
@@ -105,7 +105,7 @@ function configPlugin(pathCfg, debug, configObj){
           warnings: false
         }
       }), 
-      new webpack.ResolverPlugin( new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main']) ),
+      //new webpack.ResolverPlugin( new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main']) ),
       new CommonsChunkPlugin({
         filename: 'commons.[hash].js',
         minChunks: 3

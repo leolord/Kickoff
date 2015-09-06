@@ -24,14 +24,6 @@ var questions = [
       'h5',
       'pc'
     ]
-  }, {
-    type    : 'list',
-    name    : 'template',
-    message : '模板类型',
-    choices : [
-      'jade',
-      'ejs'
-    ]
   }
 ];
 
@@ -47,7 +39,7 @@ module.exports = function(gulp, plugins){
     var promise = new Promise(function(resolve, reject){
 
       inquirer.prompt(questions, function(ans){
-        var templateName = './scripts/template/' + ans.pageType + '.' + ans.template;
+        var templateName = './scripts/template/' + ans.pageType + '.jade';
 
         var totalCopy = 0;
         var counter = 0;
@@ -90,11 +82,11 @@ module.exports = function(gulp, plugins){
         var srcDir = path.join(pathCfg.src, ans.pageName);
 
         copyFile('./scripts/template/index.js', srcDir, 'Error in coping javascript file.');
-        copyFile('./scripts/template/index.less', srcDir, 'Error in coping less file.');
+        copyFile('./scripts/template/index.scss', srcDir, 'Error in coping scss file.');
 
         copyFile(templateName, pathCfg.template,
                  'Error in coping template file',
-                 {name : ans.pageName, ext: '.' + ans.template});
+                 {name : ans.pageName, ext: '.jade'});
       });
     });
 

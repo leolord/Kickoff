@@ -13,7 +13,7 @@ module.exports = function(gulp, plugins){
             .pipe(plugins.plumber())
             .pipe(plugins.jade())
             .pipe(plugins.frep(repMap))
-            .pipe(plugins.min({ empty: true, conditionals:true}))
+            .pipe(plugins.minHtml({ empty: true, conditionals:true}))
             .pipe(gulp.dest(pathCfg.dist));
     });
   };

@@ -1,6 +1,3 @@
-/**
- * this task depends build:less
- * */
 'use strict';
 
 var pathCfg = require('../../../package.json').path;

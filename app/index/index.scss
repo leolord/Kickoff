@@ -1,0 +1,26 @@
+//@module index
+//@author 吴建涛(fortomorrow@163.com)
+//@date Sun Sep 06 2015 16:48:21 GMT+0800 (CST)
+//
+
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+$unit: 750 / rem;
+
+
+@function px-to-rem($px) {
+  @return $px / 75 * 1rem;
+}
+
+@import '../../node_modules/compass-mixins/lib/_compass';
+
+body {
+  @include border-radius(5px, 5px);
+
+  color: $primary-color;
+  font-size: px-to-rem(7);
+  font: 100% $font-stack;
+  line-height: 100px;
+  width: 100vh;
+  height: 100vh;
+}
