@@ -1,0 +1,37 @@
+exclude: 'node_modules/**'
+
+linters:
+  ColorKeyword:
+    enabled: false
+
+  BorderZero:
+    enabled: false
+
+  Indentation:
+    severity: warning
+    width: 2
+
+  ImportPath:
+    enabled: false
+
+  PropertySortOrder:
+    enabled: false
+
+  Comment:
+    enabled: false
+
+  DisableLinterReason:
+    enabled: false
+
+  Compass::*:
+    enabled: true
+
+  PropertySortOrder:
+    enabled: false
+
+  SelectorFormat:
+    convention: strict_BEM
+    ignored_types:
+      - id
+  StringQuotes:
+    enabled: false

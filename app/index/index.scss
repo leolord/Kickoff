@@ -16,7 +16,6 @@ $unit: 750 / rem;
 
 body {
   @include border-radius(5px, 5px);
-
   color: $primary-color;
   font-size: px-to-rem(7);
   font: 100% $font-stack;
