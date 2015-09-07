@@ -12,7 +12,7 @@ $unit: 750 / rem;
   @return $px / 75 * 1rem;
 }
 
-@import '../../node_modules/compass-mixins/lib/_compass';
+@import 'compass-mixins/lib/compass';
 
 body {
   @include border-radius(5px, 5px);

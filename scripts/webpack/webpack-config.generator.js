@@ -84,7 +84,8 @@ function configLoader(pathCfg, debug, configObj) {
   },
   {
     test: /\.sass/,
-    loader: 'style!css!sass?indentedSyntax&includePaths[]=node_modules'
+    loader: 'style!css!sass?indentedSyntax&includePaths[]=' 
+              + encodeURIComponent(path.resolve(__dirname, '../../node_modules/'))
   },
   {
     test: /\.css$/,
