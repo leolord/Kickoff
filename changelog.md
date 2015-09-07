@@ -1,6 +1,8 @@
        
 *CURRENT*
 ---    
+- 2015-09-06 (吴建涛) 彻底抛弃ejs和less，用compass-mixins代替autoprefixer  (d2362388fbfb075a5aeb53da41301a735ba5e794)
+- 2015-08-31 (吴建涛) 更新changelog  (c309172e52ed7cf43e7aa1cd3c1918279113bcf8)
 - 2015-08-26 (吴建涛) Add Default Font Configuration for Mobile Page.  (f4d9331b5fa36349e15693f86cf2ddcb195ba926)
 - 2015-08-24 (吴建涛) fixbugs:   Sometimes html files cannot include the right file, after building.  (29bc0b3edee1642c5cb395c92de800953aedf522)
 - 2015-08-20 (吴建涛) 更新gitignore  (664231bc9d2d7c7e0a9bdb7b6f6271756ccef743)
