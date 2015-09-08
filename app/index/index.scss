@@ -2,24 +2,38 @@
 //@author 吴建涛(fortomorrow@163.com)
 //@date Sun Sep 06 2015 16:48:21 GMT+0800 (CST)
 //
-
-$font-stack:    Helvetica, sans-serif;
-$primary-color: #333;
-$unit: 750 / rem;
-
-
 @function px-to-rem($px) {
   @return $px / 75 * 1rem;
 }
 
 @import 'compass-mixins/lib/compass';
 
+$input-placeholder-color: #aaa;
+
+//REF: https://github.com/AlloyTeam/Mars/blob/master/solutions/font-family.md
+//Only for mobile devices
 body {
-  @include border-radius(5px, 5px);
-  color: $primary-color;
-  font-size: px-to-rem(7);
-  font: 100% $font-stack;
-  line-height: 100px;
-  width: 100vh;
-  height: 100vh;
+  // 禁止选中文字
+  @include user-select(none);
+  // 移除IOS上用户点击时的半透明遮罩，可以去掉闪烁
+  -webkit-tap-highlight-color: transparent;
+  // 禁用长按触发系统菜单
+  -webkit-touch-callout: none;
+  // 启动滚动回弹
+  -webkit-overflow-scrolling: touch;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+}
+
+a {
+  &,
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+input {
+  &::-webkit-input-placeholder,
+  &:focus::-webkit-input-placeholder {
+    color: $input-placeholder-color;
+  }
 }

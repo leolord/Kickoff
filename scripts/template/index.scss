@@ -4,8 +4,34 @@
  * @date <$=date$>
  * */
 
+@import 'compass-mixin/lib/compass';
+
+$input-placeholder-color: #aaa;
+
 //REF: https://github.com/AlloyTeam/Mars/blob/master/solutions/font-family.md
 //Only for mobile devices
 body {
+  // 禁止选中文字
+  @include user-select(none);
+  // 移除IOS上用户点击时的半透明遮罩，可以去掉闪烁
+  -webkit-tap-highlight-color: transparent;
+  // 禁用长按触发系统菜单
+  -webkit-touch-callout: none;
+  // 启动滚动回弹
+  -webkit-overflow-scrolling: touch;
   font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+}
+
+a {
+  &,
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+input {
+  &::-webkit-input-placeholder,
+  &:focus::-webkit-input-placeholder {
+    color: $input-placeholder-color;
+  }
 }
