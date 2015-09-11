@@ -80,11 +80,12 @@ function configLoader(pathCfg, debug, configObj) {
   },
   {
     test: /\.scss/,
-    loader: 'style!css!sass?includePaths[]=node_modules'
+    loader: 'style!css!sass?includePaths[]='
+              + encodeURIComponent(path.resolve(__dirname, '../../node_modules/'))
   },
   {
     test: /\.sass/,
-    loader: 'style!css!sass?indentedSyntax&includePaths[]=' 
+    loader: 'style!css!sass?indentedSyntax&includePaths[]='
               + encodeURIComponent(path.resolve(__dirname, '../../node_modules/'))
   },
   {
