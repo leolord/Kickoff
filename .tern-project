@@ -1,0 +1,15 @@
+{
+    "libs": [
+      "browser",
+      "ecma6"
+    ],
+    "plugins": {
+        "modules":{},
+        "node": {},
+        "commonjs":{},
+        "requirejs": {
+          "baseURL": "./",
+          "paths": {}
+        }
+    }
+}

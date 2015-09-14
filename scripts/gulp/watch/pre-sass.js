@@ -12,7 +12,8 @@ module.exports = function(gulp, plugins) {
     return gulp.src(sassGlob)
                .pipe(plugins.plumber())
                .pipe( plugins.sass({includePaths : 'node_modules'}).on('error', plugins.sass.logError))
-               .pipe(gulp.dest(sassOutputDir));
+               .pipe(gulp.dest(sassOutputDir))
+               .pipe(plugins.livereload());
   };
 };
 

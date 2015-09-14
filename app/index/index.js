@@ -4,4 +4,4 @@
  * @date Sun Sep 06 2015 16:48:21 GMT+0800 (CST)
  * */
 'use strict';
-require('./index.scss');
+require('./part.scss');

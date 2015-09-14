@@ -98,7 +98,8 @@ function configPlugin(pathCfg, debug, configObj){
   if(debug){
     configObj.plugins = [
       //new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
-      new CommonsChunkPlugin('commons.js')
+      new CommonsChunkPlugin('commons.js'),
+      new webpack.HotModuleReplacementPlugin()
     ];
   } else {
     configObj.plugins = [
@@ -136,7 +137,8 @@ module.exports = function(_pathCfg, debug) {
     module: { },
 
     devServer: {
-      contentBase: './'
+      contentBase : './',
+      hot         : debug
     },
 
     devtool: debug ? '#source-map' : false,

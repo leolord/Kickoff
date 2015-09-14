@@ -6,6 +6,9 @@
   @return $px / 75 * 1rem;
 }
 
+$global-font-size: .5rem !default;
+$global-font-color: pink;
+
 @import 'compass-mixins/lib/compass';
 
 $input-placeholder-color: #aaa;
@@ -21,6 +24,8 @@ body {
   -webkit-touch-callout: none;
   // 启动滚动回弹
   -webkit-overflow-scrolling: touch;
+  color: $global-font-color;
+  font-size: $global-font-size;
   font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
 }
 
