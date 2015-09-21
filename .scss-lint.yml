@@ -23,8 +23,11 @@ linters:
   DisableLinterReason:
     enabled: false
 
+  UrlQuotes:
+    enabled: false
+
   Compass::*:
-    enabled: true
+    enabled: false
 
   PropertySortOrder:
     enabled: false
@@ -35,3 +38,4 @@ linters:
       - id
   StringQuotes:
     enabled: false
+
