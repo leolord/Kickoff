@@ -34,7 +34,15 @@ function configEntry(pathCfg, debug, configObj) {
 
     if(fileDirs.indexOf(path.sep) === -1){
       entryArray.push(absolutePath);
-      entry[fileDirs] = absolutePath;
+      if(debug) {
+        entry[fileDirs] = [
+          //'webpack-dev-server?http://127.0.0.1:8080',
+          'webpack/hot/dev-server',
+          absolutePath
+        ];
+      } else {
+        entry[fileDirs] = absolutePath;
+      }
     }
   });
 
@@ -135,6 +143,15 @@ module.exports = function(_pathCfg, debug) {
     //context: path.resolve('.'),
     
     module: { },
+
+    devServer: {
+      contentBase  : '.',
+      publicPath   : ['', pathCfg.dist].join(path.sep),
+      hot          : true,
+      quiet        : false,
+      noInfo       : true,
+      stats        : { colors : true }
+    },
 
     devtool: debug ? '#source-map' : false,
     debug : debug

@@ -1,21 +1,12 @@
 'use strict';
 
-var pathCfg = require('../../../package.json').path;
-
 module.exports = function(gulp, plugins, webpackConfig){
 
   return function(){
     var cfg = webpackConfig.debug();
     var compiler = plugins.webpackCli(cfg);
 
-    new plugins.WebpackDevServer(compiler, {
-      contentBase  : pathCfg.dist,
-      publicPath   : pathCfg.dist,
-      quiet        : false,
-      noInfo       : true,
-      inline       : true,
-      stats        : { colors : true }
-    }).listen(8080, 'localhost', function(err) {
+    new plugins.WebpackDevServer(compiler, cfg.devServer).listen(8080, '127.0.0.1', function(err) {
 
       if(err) {
         throw new Error('webpack-dev-server', err);

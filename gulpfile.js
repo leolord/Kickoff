@@ -18,7 +18,6 @@ var plugins = {
   rev                  : require('gulp-rev'),
   sass                 : require('gulp-sass'),
   sequence             : require('gulp-sequence'),
-  webpack              : require('webpack-stream'),
   webpackCli           : require('webpack')
 };
 
@@ -44,7 +43,6 @@ gulp.task('watch:webpack',  require('./scripts/gulp/watch/webpack.js')(gulp, plu
 
 gulp.task('build',   plugins.sequence(['build:webpack', 'build:sass', 'build:copy'], 'build:jade'));
 gulp.task('default', plugins.sequence('clean', 'build'));
-gulp.task('dev',     plugins.sequence(['watch:pre-webpack'],
-                                  ['start-livereload', 'watch:sass', 'watch:webpack', 'watch:jade', 'watch:copy']));
+gulp.task('dev',     ['start-livereload', 'watch:sass', 'watch:webpack', 'watch:jade', 'watch:copy']);
 
 gulp.task('page', require('./scripts/gulp/new.js')(gulp, plugins, webpackConfig));
