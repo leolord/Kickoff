@@ -9,7 +9,9 @@ module.exports = function(gulp, plugins){
 
     return gulp.src(jadeGlob)
             .pipe(plugins.plumber())
-            .pipe(plugins.jade())
+            .pipe(plugins.jade({
+              locals: {debug: true}
+            }))
             .pipe(gulp.dest(pathCfg.dist))
             .pipe(plugins.livereload());
   };

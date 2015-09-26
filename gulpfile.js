@@ -34,6 +34,7 @@ gulp.task('clean',         require('./scripts/gulp/clean.js')(gulp, plugins, web
 gulp.task('start-livereload', require('./scripts/gulp/watch/start-livereload.js')(gulp, plugins));
 gulp.task('watch:pre-jade',  require('./scripts/gulp/watch/pre-jade.js')(gulp, plugins));
 gulp.task('watch:pre-sass',  require('./scripts/gulp/watch/pre-sass.js')(gulp, plugins));
+gulp.task('watch:pre-webpack',  require('./scripts/gulp/watch/pre-webpack.js')(gulp, plugins, webpackConfig));
 
 gulp.task('watch:jade',     ['watch:pre-jade'], require('./scripts/gulp/watch/jade.js')(gulp, plugins));
 gulp.task('watch:sass',     ['watch:pre-sass'], require('./scripts/gulp/watch/sass.js')(gulp, plugins));
@@ -43,6 +44,7 @@ gulp.task('watch:webpack',  require('./scripts/gulp/watch/webpack.js')(gulp, plu
 
 gulp.task('build',   plugins.sequence(['build:webpack', 'build:sass', 'build:copy'], 'build:jade'));
 gulp.task('default', plugins.sequence('clean', 'build'));
-gulp.task('dev',     ['start-livereload', 'watch:sass', 'watch:webpack', 'watch:jade', 'watch:copy']);
+gulp.task('dev',     plugins.sequence(['watch:pre-webpack'],
+                                  ['start-livereload', 'watch:sass', 'watch:webpack', 'watch:jade', 'watch:copy']));
 
 gulp.task('page', require('./scripts/gulp/new.js')(gulp, plugins, webpackConfig));

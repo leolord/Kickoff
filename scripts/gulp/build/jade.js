@@ -11,7 +11,9 @@ module.exports = function(gulp, plugins){
     return getRepMap.then(function(repMap){
       return gulp.src(jadeGlob)
             .pipe(plugins.plumber())
-            .pipe(plugins.jade())
+            .pipe(plugins.jade({
+              locals: {debug: false}
+            }))
             .pipe(plugins.frep(repMap))
             .pipe(plugins.minHtml({ empty: true, conditionals:true}))
             .pipe(gulp.dest(pathCfg.dist));

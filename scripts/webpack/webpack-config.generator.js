@@ -136,11 +136,6 @@ module.exports = function(_pathCfg, debug) {
     
     module: { },
 
-    devServer: {
-      contentBase : './',
-      hot         : debug
-    },
-
     devtool: debug ? '#source-map' : false,
     debug : debug
   };
