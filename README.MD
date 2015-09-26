@@ -1,6 +1,6 @@
 #基于WebPack的web项目模板
 
-本项目是基于WebPack编译的web项目模板，其中强制要求使用lesscss。而对于JS比较宽松，可以使用原生的JavaScript、ES6格式的JavaScript或者JSX。
+本项目是基于WebPack编译的web项目模板，其中强制要求使用sass。而对于JS比较宽松，可以使用原生的JavaScript、ES6格式的JavaScript或者JSX。
 
 ## 目前支持的特性
 * jsx
@@ -9,26 +9,25 @@
 * jade
 * uglify
 * eslint
-* less
-* autoprefix
+* sass
 * cleancss
 * minify-html
 
 ## ES6与React
-  目前已经全面支持es6和react，不过为了尽量缩短编译时间，es6的文件必须命名为`*.es6.js`，React的用到jsx语法的文件必须命名为`*.jsx`。ES 6和JSX的语法支持是由`bebel`提供的，默认设置的是最大可能的支持新的语法特性，也就是说最新的ES 7中得部分语法也可以尝试使用。
+  目前已经全面支持es6和react，不过为了尽量缩短编译时间，es6的文件必须命名为`*.es6.js`，React的用到jsx语法的文件必须命名为`*.jsx`。ES 6和JSX的语法支持是由`bebel`提供的，默认设置的是最大可能的支持新的语法特性，也就是说最新的ES 7中的部分语法也可以尝试使用。
 
 ## 关于那个恶心的`.eslintrc`文件
   `eslint`是目前功能最全面的js语法检查器，它支持茫茫多的检查规则。我们希望最大程度的利用`eslint`保证我们代码的规范性和可读性，所以我们几乎在`.eslintrc`文件中设置了所有检查规则。如果这些规则确实对你造成了困扰，建议通过[inline](http://eslint.org/docs/user-guide/configuring)的方式配置单个文件的语法检查规则。直接修改全局的`.eslintrc`文件其实是降低了对于自己代码的要求。
 
 ## 目录结构约定
 
-所有JavaScript和Less文件应当放在app目录中，每个页面对应app目录中的一个文件夹，其中index.js、index.es6.js，或者index.jsx是页面的入口脚本，index.less是页面样式的入口，我们不考虑支持用原生css编写页面样式，因为原生css不利于模块化开发。
+所有JavaScript和SCSS文件应当放在app目录中，每个页面对应app目录中的一个文件夹，其中index.js、index.es6.js，或者index.jsx是页面的入口脚本，index.sass/scss是页面样式的入口，我们不考虑支持用原生css编写页面样式，因为原生css不利于模块化开发。
 
 ```
  ▾ app/
   ▾ {{pageName}}/             /*页面assets目录*/
       index.js                /*页面入口脚本*/
-      index.less              /*页面入口样式*/
+      index.scss              /*页面入口样式*/
  ▾ template/                  /*页面html目录，我们强制建议使用jade模版(合格的程序员，应该避免任何形式的代码重复)*/
     {{pageName}}.jade         /*使用jade模板的页面文件*/
     {{pageName}}.ejs          /*使用ejs模板的页面文件*/
@@ -75,7 +74,7 @@ gulp page
 该命令会 
  
 1. 在template目录下新建对应的`EJS`文件  
-2. 在app目录下新建对应的目录，并创建空白的`js`和`less`文件
+2. 在app目录下新建对应的目录，并创建空白的`js`和`scss`文件
 
 ### 引入全局脚本/样式
 
@@ -115,30 +114,23 @@ gulp clean
 3. Webpack异步加载脚本是以当前页面所在的路径为根路径的，不同路径的页面引用相同的脚本，通常不会出问题；但是如果脚本异步加载了某些文件，`webpack`计算相对路径可能出错，如果遇到这样的问题，请将`scripts/webpack/webpack-config.generator.js`文件中`configEntry`函数设置的`publicPath`设置为绝对路径
 
 ## Q&A
-* 为什么不支持sass？  
-  因为less简单，sass必须安装ruby等工具，而在天朝，这一点可能会拦住很多初学者；less只需要NodeJS环境就可以了。虽然我认可sass比less强大，但是我同样认为安装ruby等一堆工具划不来。
+* 为什么放弃less，转向sass？  
+  1. 因为sass更强大。
+  2. 统一的mixin库允许我们不使用autoprefixer，这样编译速度快一些。
+  3. BootStrap转向sass了，我们当前业务中很多没有设计师参与的PC页面会用到。
 
-* 为什么不放弃bower，转投npm？  
-  根据大牛们的说法，bower有种种缺陷，而如果使用npm的话，能够得到的好处至少有： 
-  1. npm的API比bower稳定； 
-  2. 对于CommonJS语法有天然的支持，不需要再单独配置依赖库的路径，也不需要require相对路径； 
-  3. npm下载的包更小。  
-  4. webpack能够编译出更小的代码，这也是webpack推荐的方式。
-  
-  对于我们而言，我们依旧不会彻底放弃bower，因为通过bower下载完整的git仓库（接近完整）可以保证两点：
-  
-    1. 对于Less Mixin这样的类库，可以有很好的支持； 
-    2. npm下载的文件比较少，我们担心如果我们只是依赖一个库中的一个源文件，npm会下载编译完成的完整的包，导致我们最终打包出来的文件太大。
-    3. 对于多个页面会用到的第三方脚本，我们希望其能够在浏览器端最大限度的缓存，不会因为未来的某次编译造成缓存失效，所以还是会在HTML中直接引入一些通用的第三方的库，比如jQuery、zepto等。
+* 为什么不使用postcss？
+  postcss是CSSer们的玩具，功能很强大，但是配置复杂，使用SASS已经完全可以满足我们的需求，暂时不考虑在生产环境中使用postcss。  
 
-  总体上而言，我们希望尽可能的使用npm，而不是bower。
+* 为什么放弃bower？
+  因为bower安装的包，不能够通过JavaScript直接引入，如果在页面内直接引入，也不容易处理版本、路径等问题。同时，大量的开源库已经支持npm安装，所以除非需要用到zepto这种对于CommonJS标准不太友好的东西，尽量不使用bower。  
 
 * 为什么不在脚本后面增加类似`?ts=timestamp`这样的参数保证新部署的脚本/样式能够马上生效?  
-  通过在URL后面增加`?t=timestamp`的方式，可能造成一些浏览器无法缓存脚本。
+  通过在URL后面增加`?t=timestamp`的方式，实现起来很简单，KickOff起初的版本确实也是这么做得。但是这样做可能造成一些弱智浏览器无法缓存脚本。  
 
 * 为什么选择Jade这样和HTML的语法几乎完全不同的模板引擎作为首选？  
   原因有三：
-  1. 期初这个项目优先使用EJS模板，但是之后发现EJS模板中JS和HTML代码耦合太严重，而且HTML本身的语法很臃肿，也很混乱，所以选择了更加干净的Jade引擎。
+  1. 起初这个项目优先使用EJS模板，但是之后发现EJS模板中JS和HTML代码耦合太严重，而且HTML本身的语法很臃肿，也很混乱，所以选择了更加干净的Jade引擎。
   2. 我习惯使用vim+Syntastic，为了语法高亮，我必须将EJS的文件格式设置为`html`，但是这个时候，Syntastic会爆出一堆没有用的错误信息，让人看上去很烦，同事语法高亮也不尽如人意。
   3. Jade的语法要比ejs强大，当然副作用是编译出来的结果文件(JavaScript文件)稍微大一些。
-  4. Jade会默认转义变量，这样安全性更高。
+  4. Jade会默认转义变量、检查变量是否存在，这样安全性更高。

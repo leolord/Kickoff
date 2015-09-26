@@ -1,10 +1,4 @@
-/**
- * this task depends build:less
- * */
 'use strict';
-
-var pathCfg = require('../../../package.json').path;
-var path    = require('path');
 
 module.exports = function(gulp, plugins, webpackConfig){
 
@@ -12,19 +6,13 @@ module.exports = function(gulp, plugins, webpackConfig){
     var cfg = webpackConfig.debug();
     var compiler = plugins.webpackCli(cfg);
 
-    new plugins.WebpackDevServer(compiler, {
-      publicPath : ['', pathCfg.dist].join(path.sep),
-      quiet      : false,
-      stats      : {
-        colors : true
-      }
-    }).listen(8080, 'localhost', function(err) {
+    new plugins.WebpackDevServer(compiler, cfg.devServer).listen(8080, '127.0.0.1', function(err) {
 
       if(err) {
         throw new Error('webpack-dev-server', err);
       }
 
-      console.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/');
+      console.log('[webpack-dev-server]', 'http://127.0.0.1:8080/');
 
     });
   };

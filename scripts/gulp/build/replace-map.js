@@ -11,12 +11,12 @@ module.exports = new Promise(function(resolve, reject){
     var result = [];
 
     for(var i = 0, len = files.length; i < len; ++i){
-      var replacement = files[i].substr(distLen);
+      var replacement =  files[i].substr(distLen);
       var pattern = replacement.replace(/(index|commons)[-.][a-z0-9]+.(js|css)/, '$1.$2');
 
       result.push({
         pattern     : pattern,
-        replacement : replacement
+        replacement : '//7xn1vm.com1.z0.glb.clouddn.com/' + replacement
       });
     }
 

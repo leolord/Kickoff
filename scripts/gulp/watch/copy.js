@@ -5,8 +5,10 @@
 
 var pathCfg = require('../../../package.json').path;
 
-module.exports = function(gulp){
+module.exports = function(gulp, plugins){
   return function(){
-    return gulp.watch(pathCfg.assets, ['build:copy']);
+    return gulp.src(pathCfg.assets)
+            .pipe(plugins.copy(pathCfg.dist))
+            .pipe(plugins.livereload());
   };
 };

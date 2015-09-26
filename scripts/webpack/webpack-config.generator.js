@@ -6,7 +6,7 @@
 
 //Node modules
 var path = require('path');
-var fs = require('fs');
+var find = require('find');
 
 //webpack modules
 var webpack = require('webpack');
@@ -21,26 +21,29 @@ var defaultConfig = {
 /* eslint max-params:[1,4]*/
 function configEntry(pathCfg, debug, configObj) {
   //variables
-  var modules = fs.readdirSync(pathCfg.src),
-    entry = {},
+  var entry = {},
     entryArray = [];
 
-  //compute modules' entries
-  modules.forEach(function(name) {
-    var entryJS = ['.', pathCfg.src, name, 'index'].join(path.sep);
+  var files = find.fileSync(/index.(es6\.)?jsx?$/, pathCfg.src);
 
-    if (fs.existsSync(entryJS + '.js')) {
-      entryJS = entryJS + '.js';
-    } else if(fs.existsSync(entryJS + '.es6.js')){
-      entryJS = entryJS + '.es6.js';
-    } else if (fs.existsSync(entryJS + '.jsx')) {
-      entryJS = entryJS + '.jsx';
-    } else {
-      return;
+  files.forEach(function(_filePath){
+
+    var relativePath = path.relative(pathCfg.src, _filePath);
+    var absolutePath = path.resolve(_filePath);
+    var fileDirs = path.dirname(relativePath);
+
+    if(fileDirs.indexOf(path.sep) === -1){
+      entryArray.push(absolutePath);
+      if(debug) {
+        entry[fileDirs] = [
+          //'webpack-dev-server?http://127.0.0.1:8080',
+          'webpack/hot/dev-server',
+          absolutePath
+        ];
+      } else {
+        entry[fileDirs] = absolutePath;
+      }
     }
-
-    entryArray.push(entryJS);
-    entry[name] = entryJS;
   });
 
   configObj._entryArray = entryArray;
@@ -80,16 +83,18 @@ function configLoader(pathCfg, debug, configObj) {
     ]
   },
   {
-    test: /\.ejs$/,
-    loader: 'ejs-loader'
-  },
-  {
     test: /\.jade$/,
     loader: 'jade-loader'
   },
   {
-    test: /\.less$/,
-    loader: 'style!css!autoprefixer?browsers=last 3 version!less-loader'
+    test: /\.scss/,
+    loader: 'style!css!sass?includePaths[]='
+              + encodeURIComponent(path.resolve(__dirname, '../../node_modules/'))
+  },
+  {
+    test: /\.sass/,
+    loader: 'style!css!sass?indentedSyntax&includePaths[]='
+              + encodeURIComponent(path.resolve(__dirname, '../../node_modules/'))
   },
   {
     test: /\.css$/,
@@ -100,8 +105,9 @@ function configLoader(pathCfg, debug, configObj) {
 function configPlugin(pathCfg, debug, configObj){
   if(debug){
     configObj.plugins = [
-      new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
-      new CommonsChunkPlugin('commons.js')
+      //new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
+      new CommonsChunkPlugin('commons.js'),
+      new webpack.HotModuleReplacementPlugin()
     ];
   } else {
     configObj.plugins = [
@@ -110,7 +116,7 @@ function configPlugin(pathCfg, debug, configObj){
           warnings: false
         }
       }), 
-      new webpack.ResolverPlugin( new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main']) ),
+      //new webpack.ResolverPlugin( new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main']) ),
       new CommonsChunkPlugin({
         filename: 'commons.[hash].js',
         minChunks: 3
@@ -122,7 +128,8 @@ function configPlugin(pathCfg, debug, configObj){
 function configResolve(pathCfg, debug, configObj){
   configObj.resolve = {
     alias: require('./alias.json'),
-    root: ['bower_components', 'node_modules']
+    root: ['bower_components', 'node_modules'],
+    extensions: ['', '.js', '.es6.js', '.jsx']
   };
 }
 
@@ -138,7 +145,12 @@ module.exports = function(_pathCfg, debug) {
     module: { },
 
     devServer: {
-      contentBase: './'
+      contentBase  : '.',
+      publicPath   : ['', pathCfg.dist].join(path.sep),
+      hot          : true,
+      quiet        : false,
+      noInfo       : true,
+      stats        : { colors : true }
     },
 
     devtool: debug ? '#source-map' : false,

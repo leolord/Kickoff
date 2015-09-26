@@ -1,5 +1,5 @@
-doctype
-html(lang='zh-cms-Hans')
+doctype html
+html(lang="zh-cms-Hans")
 
   block vars
 
@@ -27,6 +27,13 @@ html(lang='zh-cms-Hans')
     block main
 
     block footer
+      <!-- [if lt IE 9]>
+      script(src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js")
+      script(src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.10/es5-shim.min.js")
+      script(src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.10/es5-sham.min.js")
+      <![endif]-->
       script(src="commons.js")
       script(src="#{page.name}/index.js")
 
+      if debug
+        script(src="/webpack-dev-server.js")
