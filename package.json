@@ -1,6 +1,6 @@
 {
   "name": "Kickoff",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "项目名称",
   "main": "gulpfile.js",
   "scripts": {

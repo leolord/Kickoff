@@ -1,6 +1,15 @@
        
 *CURRENT*
 ---    
+- 2015-09-26 (吴建涛) 这次webpack的hot module和live reload可以彻底正常的工作了，一定好好看文档，前端全是黑科技呀  (1e16eb166c2b4c7ed1a31a5349a38c425e8fbfc7)
+- 2015-09-26 (吴建涛) 终于将live-reload和webpack-dev-server的hot module结合起来了  (ce9d8b17e0ec9b7544d41ea30dae36cd8f78fca8)
+- 2015-09-21 (吴建涛) 放宽了scss-lint的规则  (14c82b5bfd2a83ad15e1fbbd040c0fb445891ba0)
+- 2015-09-14 (吴建涛) 1. 增加tern_vim的配置文件，没有仔细设置。 2. 为webpack增加hot-module插件，在gulp中使用livereload插件，使开发更顺畅。 3. 更新依赖。  (b5ded3dea9d684296268512f3b751a2056dc0a39)
+- 2015-09-11 (吴建涛) 修改了默认scss文件，另外发现，将node_modules作为sass的includePaths， 在一些情况下会造成找不到cmpass的问题。  (7bd9bb5fff7d54bfa637dac2b5f9379f4a728999)
+- 2015-09-08 (吴建涛) 默认的SASS模板中添加了移动端常用的属性  (5afe2e11bcf0a5cd6782c7b2acddae9b24c431b0)
+- 2015-09-07 (吴建涛) 改进了scss引入compass的方法，删除了无用的ejs/less文件  (183175531458e51548ed08452eda90330ccca604)
+- 2015-09-07 (吴建涛) 添加了scss-lint的配置文件  (237a428390b921d9f7877d49b7f9356beccfd63b)
+- 2015-09-07 (吴建涛) 更新changelog.md  (380a62e40f89e40078d0bad18d8ed679de16a9de)
 - 2015-09-06 (吴建涛) 彻底抛弃ejs和less，用compass-mixins代替autoprefixer  (d2362388fbfb075a5aeb53da41301a735ba5e794)
 - 2015-08-31 (吴建涛) 更新changelog  (c309172e52ed7cf43e7aa1cd3c1918279113bcf8)
 - 2015-08-26 (吴建涛) Add Default Font Configuration for Mobile Page.  (f4d9331b5fa36349e15693f86cf2ddcb195ba926)
