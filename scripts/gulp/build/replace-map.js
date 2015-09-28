@@ -16,7 +16,7 @@ module.exports = new Promise(function(resolve, reject){
 
       result.push({
         pattern     : pattern,
-        replacement : '//7xn1vm.com1.z0.glb.clouddn.com/' + replacement
+        replacement : replacement
       });
     }
 
