@@ -11,6 +11,8 @@ $input-placeholder-color: #aaa;
 //REF: https://github.com/AlloyTeam/Mars/blob/master/solutions/font-family.md
 //Only for mobile devices
 body {
+  margin: 0;
+  padding: 0;
   // 禁止选中文字
   @include user-select(none);
   // 移除IOS上用户点击时的半透明遮罩，可以去掉闪烁

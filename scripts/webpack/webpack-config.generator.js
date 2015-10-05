@@ -87,12 +87,12 @@ function configLoader(pathCfg, debug, configObj) {
     loader: 'jade-loader'
   },
   {
-    test: /\.scss/,
+    test: /\.scss$/,
     loader: 'style!css!sass?includePaths[]='
               + encodeURIComponent(path.resolve(__dirname, '../../node_modules/'))
   },
   {
-    test: /\.sass/,
+    test: /\.sass$/,
     loader: 'style!css!sass?indentedSyntax&includePaths[]='
               + encodeURIComponent(path.resolve(__dirname, '../../node_modules/'))
   },
@@ -139,7 +139,6 @@ module.exports = function(_pathCfg, debug) {
   var pathCfg = _pathCfg || defaultConfig;
 
   var configObj = {
-    //这是是gulpFile需要的入口文件列表
     //context: path.resolve('.'),
     
     module: { },

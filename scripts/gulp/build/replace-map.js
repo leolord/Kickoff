@@ -1,13 +1,12 @@
 'use strict';
 
 var find = require('find');
-var path = require('path');
 var dist = require('../../../package.json').path.dist || 'dist';
 var Promise = require('bluebird');
 
 module.exports = new Promise(function(resolve, reject){
-  find.file(/(index|commons)[-.][a-z0-9]+.(js|css)$/, path.join('.', dist), function(files){
-    var distLen = dist.length + 1;
+  find.file(/(index|commons)[-.][a-z0-9]+.(js|css)$/, dist, function(files){
+    var distLen = dist.match(/\\$|\/$/) ? dist.length : dist.length + 1;
     var result = [];
 
     for(var i = 0, len = files.length; i < len; ++i){

@@ -33,7 +33,6 @@ gulp.task('clean',         require('./scripts/gulp/clean.js')(gulp, plugins, web
 gulp.task('start-livereload', require('./scripts/gulp/watch/start-livereload.js')(gulp, plugins));
 gulp.task('watch:pre-jade',  require('./scripts/gulp/watch/pre-jade.js')(gulp, plugins));
 gulp.task('watch:pre-sass',  require('./scripts/gulp/watch/pre-sass.js')(gulp, plugins));
-gulp.task('watch:pre-webpack',  require('./scripts/gulp/watch/pre-webpack.js')(gulp, plugins, webpackConfig));
 
 gulp.task('watch:jade',     ['watch:pre-jade'], require('./scripts/gulp/watch/jade.js')(gulp, plugins));
 gulp.task('watch:sass',     ['watch:pre-sass'], require('./scripts/gulp/watch/sass.js')(gulp, plugins));
