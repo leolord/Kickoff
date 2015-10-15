@@ -45,7 +45,7 @@
     "json-loader": "^0.5.3",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.3.2",
-    "sass-loader": "^2.0.1",
+    "sass-loader": "^3.0.0",
     "source-map-loader": "^0.1.4",
     "style-loader": "^0.12.0",
     "webpack": "^1.12.1",
@@ -72,7 +72,6 @@
     "dist": "dist"
   },
   "dependencies": {
-    "compass-mixins": "^0.12.7",
-    "react": "^0.13.3"
+    "compass-mixins": "^0.12.7"
   }
 }
