@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = function(gulp, plugins, webpackConfig) {
+var webpackConfig = require('./load-webpack-config.js')();
+
+module.exports = function() {
 
   return function() {
     console.log(webpackConfig.release());

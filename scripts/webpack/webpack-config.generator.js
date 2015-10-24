@@ -18,7 +18,6 @@ var defaultConfig = {
   'vendor': 'vendor'
 };
 
-/* eslint max-params:[1,4]*/
 function configEntry(pathCfg, debug, configObj) {
   //variables
   var entry = {},
@@ -36,8 +35,7 @@ function configEntry(pathCfg, debug, configObj) {
       entryArray.push(absolutePath);
       if(debug) {
         entry[fileDirs] = [
-          //'webpack-dev-server?http://127.0.0.1:8080',
-          'webpack/hot/dev-server',
+          'webpack-hot-middleware/client',
           absolutePath
         ];
       } else {
@@ -46,7 +44,6 @@ function configEntry(pathCfg, debug, configObj) {
     }
   });
 
-  configObj._entryArray = entryArray;
   configObj.entry = entry;
   configObj.output = {
     path: path.resolve(pathCfg.dist),
@@ -105,9 +102,10 @@ function configLoader(pathCfg, debug, configObj) {
 function configPlugin(pathCfg, debug, configObj){
   if(debug){
     configObj.plugins = [
-      //new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
+      new webpack.optimize.OccurenceOrderPlugin(),
       new CommonsChunkPlugin('commons.js'),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
     ];
   } else {
     configObj.plugins = [
@@ -142,15 +140,6 @@ module.exports = function(_pathCfg, debug) {
     //context: path.resolve('.'),
     
     module: { },
-
-    devServer: {
-      contentBase  : '.',
-      publicPath   : ['', pathCfg.dist].join(path.sep),
-      hot          : true,
-      quiet        : false,
-      noInfo       : true,
-      stats        : { colors : true }
-    },
 
     devtool: debug ? '#source-map' : false,
     debug : debug

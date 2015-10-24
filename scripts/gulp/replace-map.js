@@ -1,7 +1,7 @@
 'use strict';
 
 var find = require('find');
-var dist = require('../../../package.json').path.dist || 'dist';
+var dist = require('../../package.json').path.dist || 'dist';
 var Promise = require('bluebird');
 
 module.exports = new Promise(function(resolve, reject){

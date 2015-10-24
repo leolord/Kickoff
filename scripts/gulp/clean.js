@@ -1,9 +1,10 @@
 'use strict';
 
 var pathCfg = require('../../package.json').path;
+var del     = require('del');
 
-module.exports = function(gulp, plugins){
+module.exports = function(){
   return function(cb){
-    return plugins.del([pathCfg.dist, '*.tar.gz'], cb);
+    return del([pathCfg.dist, '*.tar.gz'], cb);
   };
 };

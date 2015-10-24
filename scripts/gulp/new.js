@@ -5,8 +5,11 @@ var path    = require('path');
 var pathCfg = cfg.path;
 var author  = cfg.author || '';
 
-var Promise  = require('bluebird');
-var inquirer = require('inquirer');
+var Promise   = require('bluebird');
+var inquirer  = require('inquirer');
+var gitConfig = require('git-config');
+var frep      = require('gulp-frep');
+var rename    = require('gulp-rename');
 
 var questions = [
   {
@@ -27,9 +30,9 @@ var questions = [
   }
 ];
 
-module.exports = function(gulp, plugins){
+module.exports = function(gulp){
 
-  plugins.gitConfig(function(err, config){
+  gitConfig(function(err, config){
     if(err)return;
     author = config.user.name + '(' + config.user.email + ')';
   });
@@ -51,11 +54,11 @@ module.exports = function(gulp, plugins){
         };
 
         /*eslint max-params:[1, 4]*/
-        var copyFile = function(file, dest, errorMsg, rename){
+        var copyFile = function(file, dest, errorMsg, renameMap){
           ++totalCopy;
 
           gulp.src(file)
-              .pipe(plugins.frep([{
+              .pipe(frep([{
                 pattern: /<\$=pageName\$>/g,
                 replacement: ans.pageName
               }, {
@@ -65,10 +68,10 @@ module.exports = function(gulp, plugins){
                 pattern: /<\$=date\$>/g,
                 replacement: new Date().toString()
               }]))
-              .pipe(plugins.rename(function(targetFile){
-                if(rename){
-                  targetFile.basename = rename.name;
-                  targetFile.extname = rename.ext;
+              .pipe(rename(function(targetFile){
+                if(renameMap){
+                  targetFile.basename = renameMap.name;
+                  targetFile.extname = renameMap.ext;
                 }
               }))
               .pipe(gulp.dest(dest))
