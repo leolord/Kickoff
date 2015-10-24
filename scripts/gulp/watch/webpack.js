@@ -1,12 +1,17 @@
 'use strict';
 
-module.exports = function(gulp, plugins, webpackConfig){
+var pathCfg             = require('../../../package.json').path;
+var webpack             = require('webpack');
+var webpackCfgGenerator = require('../../webpack/webpack-config.generator.js');
+var WebpackServer       = require('webpack-dev-server');
+
+module.exports = function(){
 
   return function(){
-    var cfg = webpackConfig.debug();
-    var compiler = plugins.webpackCli(cfg);
+    var cfg = webpackCfgGenerator(pathCfg, true);
+    var compiler = webpack(cfg);
 
-    new plugins.WebpackDevServer(compiler, cfg.devServer).listen(8080, '127.0.0.1', function(err) {
+    new WebpackServer(compiler, cfg.devServer).listen(8080, '127.0.0.1', function(err) {
 
       if(err) {
         throw new Error('webpack-dev-server', err);

@@ -3,12 +3,14 @@
  * */
 'use strict';
 
-var pathCfg = require('../../../package.json').path;
+var copy       = require('gulp-copy');
+var livereload = require('gulp-livereload');
+var pathCfg    = require('../../../package.json').path;
 
-module.exports = function(gulp, plugins){
+module.exports = function(gulp){
   return function(){
     return gulp.src(pathCfg.assets)
-            .pipe(plugins.copy(pathCfg.dist))
-            .pipe(plugins.livereload());
+            .pipe(copy(pathCfg.dist))
+            .pipe(livereload());
   };
 };

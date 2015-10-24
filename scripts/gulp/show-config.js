@@ -1,9 +1,12 @@
 'use strict';
 
-module.exports = function(gulp, plugins, webpackConfig) {
+var pathCfg = require('../../package.json').path;
+var webpackCfgGenerator = require('../webpack/webpack-config.generator.js');
+
+module.exports = function() {
 
   return function() {
-    console.log(webpackConfig.release());
+    console.log(webpackCfgGenerator(pathCfg, true));
     return true;
   };
 };
