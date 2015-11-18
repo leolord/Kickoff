@@ -5,14 +5,13 @@
  * */
 
 @import 'compass-mixin/lib/compass';
+@import 'compass-mixins/lib/compass/reset';
 
 $input-placeholder-color: #aaa;
 
 //REF: https://github.com/AlloyTeam/Mars/blob/master/solutions/font-family.md
 //Only for mobile devices
 body {
-  margin: 0;
-  padding: 0;
   // 禁止选中文字
   @include user-select(none);
   // 移除IOS上用户点击时的半透明遮罩，可以去掉闪烁
@@ -25,6 +24,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
   // for pc or mac
   // font-family: "Microsoft YaHei", "SimSun", "Hiragino Sans GB", "WenQuanYi Microhei";
+  margin: 0;
+  padding: 0;
 }
 
 a {
