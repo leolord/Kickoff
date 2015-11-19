@@ -19,16 +19,23 @@ var defaultConfig = {
 };
 
 /* eslint max-params:[1,4]*/
-function configEntry(pathCfg, debug, configObj) {
+function configEntry(pathCfg, configObj, debug, test) {
   //variables
   var entry = {},
-    entryArray = [];
+    entryArray = [],
+    srcPath, files;
 
-  var files = find.fileSync(/index.(es6\.)?jsx?$/, pathCfg.src);
+  if(test){
+    srcPath = pathCfg.test;
+    files = find.fileSync(/.jsx?$/, srcPath);
+  } else {
+    srcPath = pathCfg.src;
+    files = find.fileSync(/index.(es6\.)?jsx?$/, srcPath);
+  }
 
   files.forEach(function(_filePath){
 
-    var relativePath = path.relative(pathCfg.src, _filePath);
+    var relativePath = path.relative(srcPath, _filePath);
     var absolutePath = path.resolve(_filePath);
     var fileDirs = path.dirname(relativePath);
 
@@ -56,7 +63,7 @@ function configEntry(pathCfg, debug, configObj) {
   };
 }
 
-function configLoader(pathCfg, debug, configObj) {
+function configLoader(pathCfg, configObj) {
   configObj.module.loaders = [{
     test: /(\.es6.js$)|(\.jsx$)/,
     exclude: /(node_modules|bower_components)/,
@@ -102,30 +109,34 @@ function configLoader(pathCfg, debug, configObj) {
   }];
 }
 
-function configPlugin(pathCfg, debug, configObj){
+function configPlugin(pathCfg, configObj, debug, test){
   if(debug){
     configObj.plugins = [
-      //new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
-      new CommonsChunkPlugin('commons.js'),
-      new webpack.HotModuleReplacementPlugin()
+      new CommonsChunkPlugin('commons.js')
     ];
+
+    if(!test){
+      configObj.plugins.push(new webpack.HotModuleReplacementPlugin());
+    }
   } else {
     configObj.plugins = [
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
         }
-      }), 
-      //new webpack.ResolverPlugin( new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main']) ),
-      new CommonsChunkPlugin({
-        filename: 'commons.[hash].js',
-        minChunks: 3
       })
     ];
+
+    if(!test){
+      configObj.plugins.push(new CommonsChunkPlugin({
+        filename: 'commons.[hash].js',
+        minChunks: 3
+      }));
+    }
   }
 }
 
-function configResolve(pathCfg, debug, configObj){
+function configResolve(pathCfg, configObj){
   configObj.resolve = {
     alias: require('./alias.json'),
     root: ['bower_components', 'node_modules'],
@@ -134,12 +145,12 @@ function configResolve(pathCfg, debug, configObj){
 }
 
 //configuration
-module.exports = function(_pathCfg, debug) {
+module.exports = function(_pathCfg, debug, test) {
 
   var pathCfg = _pathCfg || defaultConfig;
 
   var configObj = {
-    //context: path.resolve('.'),
+    context: path.resolve('.'),
     
     module: { },
 
@@ -156,10 +167,10 @@ module.exports = function(_pathCfg, debug) {
     debug : debug
   };
 
-  configEntry(pathCfg, debug, configObj);
-  configLoader(pathCfg, debug, configObj);
-  configPlugin(pathCfg, debug, configObj);
-  configResolve(pathCfg, debug, configObj);
+  configEntry(pathCfg, configObj, debug,  test);
+  configLoader(pathCfg, configObj, debug,  test);
+  configPlugin(pathCfg, configObj, debug,  test);
+  configResolve(pathCfg, configObj, debug,  test);
 
   return configObj;
 };

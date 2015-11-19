@@ -21,9 +21,9 @@ gulp.task('watch:sass',     ['watch:pre-sass'], require('./scripts/gulp/watch/sa
 gulp.task('watch:copy',     ['build:copy'], require('./scripts/gulp/watch/copy.js')(gulp));
 gulp.task('watch:webpack',  require('./scripts/gulp/watch/webpack.js')(gulp));
 
-
+gulp.task('test',    require('./scripts/gulp/test.js')());
 gulp.task('build',   sequence(['build:webpack', 'build:sass', 'build:copy'], 'build:jade'));
-gulp.task('default', sequence('clean', 'build'));
 gulp.task('dev',     ['start-livereload', 'watch:sass', 'watch:webpack', 'watch:jade', 'watch:copy']);
+gulp.task('default', sequence('test', 'clean', 'build'));
 
 gulp.task('page', require('./scripts/gulp/new.js')(gulp));

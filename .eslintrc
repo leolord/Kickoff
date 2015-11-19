@@ -1,7 +1,9 @@
 {
   "globals" : {
-    "$"       : false,
-    "_"       : false
+    "$"        : false,
+    "_"        : false,
+    "describe" : false,
+    "it"       : false
   },
   "parser": "babel-eslint",
   "ecmaFeatures": {
@@ -30,7 +32,8 @@
     "unicodeCodePointEscapes"          : true,
   },
   "plugins": [
-    "react"
+    "react",
+    "jasmine"
   ],
   "env" : {
     "browser" : true,
