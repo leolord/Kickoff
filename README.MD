@@ -119,7 +119,7 @@ gulp clean
   2. 统一的mixin库允许我们不使用autoprefixer，这样编译速度快一些。
   3. BootStrap转向sass了，我们当前业务中很多没有设计师参与的PC页面会用到。
 
-* 为什么不使用postcss？
+* 为什么不使用postcss？  
   postcss是CSSer们的玩具，功能很强大，但是配置复杂，使用SASS已经完全可以满足我们的需求，暂时不考虑在生产环境中使用postcss。  
 
 * 为什么放弃bower？

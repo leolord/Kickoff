@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = function (gulp, plugins) {
+module.exports = function () {
   return function(){
-    plugins.livereload.listen();
+    require('gulp-livereload').listen();
   };
 };

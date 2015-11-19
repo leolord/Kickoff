@@ -1,15 +1,17 @@
 {
-    "libs": [
-      "browser",
-      "ecma6"
-    ],
-    "plugins": {
-        "modules":{},
-        "node": {},
-        "commonjs":{},
-        "requirejs": {
-          "baseURL": "./",
-          "paths": {}
-        }
+  "ecmaVersion": 6,
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "plugins": {
+    "modules": {},
+    "node": {},
+    "commonjs": {},
+    "requirejs": {
+      "baseURL": "./",
+      "paths": {}
     }
+  }
 }
+

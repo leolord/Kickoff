@@ -1,18 +1,15 @@
 'use strict';
 
-//var pathCfg = require('../../../package.json').path;
-//var path = require('path');
+var pathCfg             = require('../../../package.json').path;
+//var webpackServer       = require('webpack-dev-server');
+var webpack             = require('webpack');
+var webpackCfgGenerator = require('../../webpack/webpack-config.generator.js');
 
-module.exports = function(gulp, plugins, webpackConfig){
+module.exports = function(){
   return function(cb){
-    var cfg = webpackConfig.release();
-    plugins.webpackCli(cfg, function(err, stats){
-
+    var cfg = webpackCfgGenerator(pathCfg, false);
+    webpack(cfg, function(err){
       if(err) console.error('Webpack Error: ', err);
-
-      console.log('[webpack]', stats.toString({
-        colors: true
-      }));
       cb();
     });
   };

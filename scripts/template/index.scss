@@ -5,6 +5,7 @@
  * */
 
 @import 'compass-mixin/lib/compass';
+@import 'compass-mixins/lib/compass/reset';
 
 $input-placeholder-color: #aaa;
 
@@ -23,6 +24,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
   // for pc or mac
   // font-family: "Microsoft YaHei", "SimSun", "Hiragino Sans GB", "WenQuanYi Microhei";
+  margin: 0;
+  padding: 0;
 }
 
 a {
