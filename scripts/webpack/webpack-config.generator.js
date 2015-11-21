@@ -112,11 +112,11 @@ function configLoader(pathCfg, configObj) {
 function configPlugin(pathCfg, configObj, debug, test){
   if(debug){
     configObj.plugins = [
-      new CommonsChunkPlugin('commons.js')
+      new webpack.HotModuleReplacementPlugin()
     ];
 
     if(!test){
-      configObj.plugins.push(new webpack.HotModuleReplacementPlugin());
+      configObj.plugins.push(new CommonsChunkPlugin('commons.js'));
     }
   } else {
     configObj.plugins = [
