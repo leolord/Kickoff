@@ -19,13 +19,13 @@ var defaultConfig = {
 };
 
 /* eslint max-params:[1,4]*/
-function configEntry(pathCfg, configObj, debug, test) {
+function configEntry(pathCfg, configObj, isDebug, isTest) {
   //variables
   var entry = {},
     entryArray = [],
     srcPath, files;
 
-  if(test){
+  if(isTest){
     srcPath = pathCfg.test;
     files = find.fileSync(/.jsx?$/, srcPath);
   } else {
@@ -41,7 +41,7 @@ function configEntry(pathCfg, configObj, debug, test) {
 
     if(fileDirs.indexOf(path.sep) === -1){
       entryArray.push(absolutePath);
-      if(debug) {
+      if(isDebug) {
         entry[fileDirs] = [
           //'webpack-dev-server?http://127.0.0.1:8080',
           'webpack/hot/dev-server',
@@ -58,8 +58,8 @@ function configEntry(pathCfg, configObj, debug, test) {
   configObj.output = {
     path: path.resolve(pathCfg.dist),
     publicPath: './',
-    filename: debug ? '[name]/index.js' : '[name]/index.[chunkhash].js',
-    chunkFilename: [pathCfg.vendor, debug ? '[name].js' : '[name].[chunkhash].js'].join(path.sep)
+    filename: isDebug ? '[name]/index.js' : '[name]/index.[chunkhash].js',
+    chunkFilename: [pathCfg.vendor, isDebug ? '[name].js' : '[name].[chunkhash].js'].join(path.sep)
   };
 }
 
@@ -109,13 +109,13 @@ function configLoader(pathCfg, configObj) {
   }];
 }
 
-function configPlugin(pathCfg, configObj, debug, test){
-  if(debug){
+function configPlugin(pathCfg, configObj, isDebug, isTest){
+  if(isDebug){
     configObj.plugins = [
       new webpack.HotModuleReplacementPlugin()
     ];
 
-    if(!test){
+    if(!isTest){
       configObj.plugins.push(new CommonsChunkPlugin('commons.js'));
     }
   } else {
@@ -127,7 +127,7 @@ function configPlugin(pathCfg, configObj, debug, test){
       })
     ];
 
-    if(!test){
+    if(!isTest){
       configObj.plugins.push(new CommonsChunkPlugin({
         filename: 'commons.[hash].js',
         minChunks: 3
@@ -139,13 +139,13 @@ function configPlugin(pathCfg, configObj, debug, test){
 function configResolve(pathCfg, configObj){
   configObj.resolve = {
     alias: require('./alias.json'),
-    root: ['bower_components', 'node_modules'],
+    root: ['bower_components', 'node_modules', path.src],
     extensions: ['', '.js', '.es6.js', '.jsx']
   };
 }
 
 //configuration
-module.exports = function(_pathCfg, debug, test) {
+module.exports = function(_pathCfg, isDebug, isTest) {
 
   var pathCfg = _pathCfg || defaultConfig;
 
@@ -163,14 +163,14 @@ module.exports = function(_pathCfg, debug, test) {
       stats        : { colors : true }
     },
 
-    devtool: debug ? '#source-map' : false,
-    debug : debug
+    devtool: isDebug ? '#source-map' : false,
+    debug : isDebug
   };
 
-  configEntry(pathCfg, configObj, debug,  test);
-  configLoader(pathCfg, configObj, debug,  test);
-  configPlugin(pathCfg, configObj, debug,  test);
-  configResolve(pathCfg, configObj, debug,  test);
+  configEntry(pathCfg, configObj, isDebug,  isTest);
+  configLoader(pathCfg, configObj, isDebug,  isTest);
+  configPlugin(pathCfg, configObj, isDebug,  isTest);
+  configResolve(pathCfg, configObj, isDebug,  isTest);
 
   return configObj;
 };

@@ -31,11 +31,10 @@ module.exports = function(config) {
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-jasmine',
-      'karma-jasmine-html-reporter',
       'karma-webpack'
     ],
 
-    reporters: ['html'],
+    reporters: ['dots'],
 
     port: 9876,
 
