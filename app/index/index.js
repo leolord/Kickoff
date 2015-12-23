@@ -5,3 +5,5 @@
  * */
 'use strict';
 require('./part.scss');
+
+console.log('Reload');

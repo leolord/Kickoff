@@ -43,7 +43,6 @@ function configEntry(pathCfg, configObj, isDebug, isTest) {
       entryArray.push(absolutePath);
       if(isDebug) {
         entry[fileDirs] = [
-          //'webpack-dev-server?http://127.0.0.1:8080',
           'webpack/hot/dev-server',
           absolutePath
         ];
@@ -129,6 +128,7 @@ function configPlugin(pathCfg, configObj, isDebug, isTest){
 
     if(!isTest){
       configObj.plugins.push(new CommonsChunkPlugin({
+        name: 'commons',
         filename: 'commons.[hash].js',
         minChunks: 3
       }));
