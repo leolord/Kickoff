@@ -1,0 +1,49 @@
+<%
+if(page.title    === undefined) page.title = '页面标题';
+if(page.desc     === undefined) page.desc = '页面描述';
+if(page.author   === undefined) page.author = '页面作者';
+if(page.keywords === undefined) page.keywords = '页面你关键字';
+
+var commoncss = typeof build !== 'undefined' && build.common && build.common.css || 'common.css';
+var commonjs  = typeof build !== 'undefined' && build.common && build.common.js  || 'common.js';
+var pagecss   = typeof build !== 'undefined' && build[page.name] && build[page.name].css  || page.name+'.css';
+var pagejs    = typeof build !== 'undefined' && build[page.name] && build[page.name].js  || page.name+'.js';
+
+if(page.name === undefined) pagecss = pagejs = 'empty';
+
+
+page.commonjs = commonjs;
+page.pagejs = pagejs;
+%>
+<!doctype html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta lang="zh">
+    <title><%=page.title%></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="robots" content="index,follow">
+    <base target="_blank">
+    <%if(page.desc){%>
+    <meta name="description" content="<%=page.desc%>">
+    <%}%>
+    <%if(page.keywords){%>
+    <meta name="keywords" content="<%=page.keywords%>">
+    <%}%>
+    <%if(page.author){%>
+    <meta name="author" content="<%=page.author%>">
+    <%}%>
+    <% if(!debug && commoncss != 'empty'){%>
+    <link rel="stylesheet" href="app/<%=commoncss%>">
+    <%}%>
+    <% if(pagecss != 'empty'){%>
+    <link rel="stylesheet" href="app/<%=pagecss%>">
+    <%}%>
+    <script>
+! function() { function a() { document.documentElement.style.fontSize = document.documentElement.clientWidth / 16 + "px" } var b = null; window.addEventListener("resize", function() { clearTimeout(b), b = setTimeout(a, 300) }, !1), a() }(window);
+    </script>
+  </head>
+  <body>
+
+

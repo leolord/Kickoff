@@ -1,0 +1,9 @@
+
+    <%if(!debug && page.commonjs != 'empty'){%>
+      <script src="app/<%=page.commonjs%>"></script>
+    <%}%>
+    <%if(page.pagejs != 'empty'){%>
+      <script src="app/<%=page.pagejs%>"></script>
+    <%}%>
+  </body>
+</html>
