@@ -3,4 +3,4 @@ bower_components
 dist
 *.tar.gz
 .DS_Store
-./stats.json
+stats.json
