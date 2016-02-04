@@ -1,8 +1,0 @@
-$main-color: green;
-
-@import 'compass-mixins/lib/compass';
-
-.main {
-  @include border-radius(.2rem);
-  border: 1px solid $main-color;
-}

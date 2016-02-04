@@ -14,9 +14,6 @@ linters:
   ImportPath:
     enabled: false
 
-  PropertySortOrder:
-    enabled: false
-
   Comment:
     enabled: false
 
