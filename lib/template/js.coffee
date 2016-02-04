@@ -1,5 +1,5 @@
 ###
-## file: $entryStylePath$
+## file: $filePath$
 ## author: $author$
 ## description: $description$
 ###
