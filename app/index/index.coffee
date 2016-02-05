@@ -6,4 +6,8 @@
 
 require './index.less'
 
-console.log '33333'
+msg = '333333'
+
+console.log msg
+
+module.exports = msg

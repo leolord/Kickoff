@@ -1,7 +1,6 @@
 {
   "author": "吴建涛<fortomorrow@163.com>",
-  "dependencies": {
-  },
+  "dependencies": {},
   "description": "A multpage frontend scaffold based on webpack",
   "devDependencies": {
     "autoprefixer": "^6.3.1",
@@ -10,7 +9,6 @@
     "babel-loader": "^6.2.1",
     "babel-plugin-transform-runtime": "^6.4.0",
     "babel-preset-es2015": "^6.3.13",
-    "babel-preset-stage-0": "^6.3.13",
     "babel-runtime": "^5.8.35",
     "bluebird": "^3.1.1",
     "bundle-loader": "^0.5.4",
@@ -18,7 +16,6 @@
     "clean-css": "^3.4.9",
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.10.0",
-    "commander": "^2.9.0",
     "css-loader": "^0.23.1",
     "del": "^2.2.0",
     "ejs": "^2.4.1",
@@ -54,9 +51,7 @@
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "ncp": "^2.0.0",
-    "node-libs-browser": "^0.5.3",
     "node-sass": "^3.4.2",
-    "open": "0.0.5",
     "phantomjs": "^1.9.19",
     "postcss-loader": "^0.8.0",
     "rimraf": "^2.5.0",
@@ -67,13 +62,12 @@
     "style-loader": "^0.13.0",
     "uglify-js": "^2.6.1",
     "url-loader": "^0.5.7",
-    "vue-hot-reload-api": "^1.2.2",
+    "vue-hot-reload-api": "^1.3.2",
     "vue-html-loader": "^1.1.0",
     "vue-loader": "^8.0.2",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.10",
-    "webpack-dev-middleware": "^1.5.1",
-    "webpack-dev-server": "^1.14.0"
+    "webpack-dev-middleware": "^1.5.1"
   },
   "keywords": [
     "webpack",
@@ -93,5 +87,5 @@
     "dev": "node ./lib/server.js",
     "test": "karma start lib/karma.conf.js --single-run"
   },
-  "version": "1.0.0-alpha"
+  "version": "1.0.0"
 }
