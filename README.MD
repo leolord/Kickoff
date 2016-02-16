@@ -1,4 +1,5 @@
 #基于WebPack的web项目模板
+[![Build Status](https://travis-ci.org/leolord/Kickoff.svg)](https://travis-ci.org/leolord/Kickoff) 
 
 本项目是基于WebPack编译的web项目模板，其中强制要求使用sass。而对于JS比较宽松，可以使用原生的JavaScript、ES6格式的JavaScript或者JSX。
 

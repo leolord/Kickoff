@@ -1,0 +1,20 @@
+---
+language: node_js
+
+node_js:
+  - "5.4.1"
+  - "stable"
+
+before_install:
+  - npm install -g npm@3.5.3
+
+install:
+  - npm install
+  - du -sh ./node_modules || true
+
+script:
+  - npm run build
+
+cache:
+  directories:
+    - node_modules
