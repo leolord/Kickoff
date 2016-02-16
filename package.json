@@ -87,5 +87,5 @@
     "dev": "node ./lib/server.js",
     "test": "karma start lib/karma.conf.js --single-run"
   },
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
