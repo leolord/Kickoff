@@ -1,7 +1,7 @@
 #基于WebPack的web项目模板
 [![Build Status](https://travis-ci.org/leolord/Kickoff.svg)](https://travis-ci.org/leolord/Kickoff) 
 
-本项目是基于WebPack编译的web项目模板，其中强制要求使用sass。而对于JS比较宽松，可以使用原生的JavaScript、ES6格式的JavaScript或者JSX。
+本项目是基于WebPack的WEB项目模板，默认支持多页面。
 
 ## 目前支持的特性
 * vue
@@ -15,15 +15,12 @@
 * sass
 * less
 
-## ES6与React
-  目前已经全面支持es6， 如果需要支持react，需要配置jsx-loader，由于我的开发环境中很少有适合react的场景，所以暂时不增加配置。
-
 ## 关于那个恶心的`.eslintrc`文件
   `eslint`是目前功能最全面的js语法检查器，它支持茫茫多的检查规则。我们希望最大程度的利用`eslint`保证我们代码的规范性和可读性，所以我们几乎在`.eslintrc`文件中设置了所有检查规则。如果这些规则确实对你造成了困扰，建议配置成你习惯的检查[规则](http://eslint.org/docs/user-guide/configuring)。
 
 ## 目录结构约定
 
-所有JavaScript和SCSS文件应当放在app目录中，每个页面对应app目录中的一个文件夹，其中index.js、index.coffee、index.vue，或者index.jsx是页面的入口脚本，index.sass/scss/less是页面样式的入口。
+所有源码文件应当放在app目录中，每个页面对应app目录中的一个文件夹，其中index.js/coffee/vue是页面的入口脚本，index.sass/scss/less是页面样式的入口。
 
 ```
  ▾ app/
@@ -53,7 +50,7 @@
 ### 初始化项目目录
 ```
 ProjectName=MyProject #项目名称＃
-git clone https://github.com/leolord/Kickoff.git $ProjectName
+git clone -b develop --single-branch git@github.com:leolord/Kickoff.git $ProjectName
 cd $ProjectName
 npm install
 ```
@@ -99,9 +96,9 @@ npm run clean
 2. Webpack异步加载脚本是以当前页面所在的路径为根路径的，不同路径的页面引用相同的脚本，通常不会出问题；但是如果脚本异步加载了某些文件，`webpack`计算相对路径可能出错，如果遇到这样的问题，请将`lib/webpack.base.conf.js`文件中的`publicPath`设置为绝对路径
 
 ## Q&A
-* 为什么从less转向sass？  
+* 为什么更加偏爱sass？  
   1. 因为sass更强大。
-  2. 统一的mixin库允许我们不使用autoprefixer，这样编译速度快一些。
+  2. 统一的mixin库。
   3. BootStrap转向sass了，我们当前业务中很多没有设计师参与的PC页面会用到。
 
 * 为什么不使用postcss？  
