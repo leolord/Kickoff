@@ -1,5 +1,5 @@
----
-ecmaFeatures:
+--- 
+ecmaFeatures: 
   arrowFunctions: true
   binaryLiterals: true
   blockBindings: true
@@ -24,97 +24,102 @@ ecmaFeatures:
   superInFunctions: true
   templateStrings: true
   unicodeCodePointEscapes: true
-env:
+env: 
   amd: true
   browser: true
   commonjs: true
   es6: true
   jasmine: true
   node: true
-extends: eslint:recommended
+extends: "eslint:recommended"
 parser: babel-eslint
-plugins:
-- jasmine
-rules:
-  arrow-body-style:
-  - 2
-  - as-needed
+plugins: 
+  - jasmine
+rules: 
+  arrow-body-style: 
+    - 2
+    - as-needed
   block-scoped-var: 2
-  brace-style:
-  - 2
-  - 1tbs
-  - allowSingleLine: true
+  brace-style: 
+    - 2
+    - 1tbs
+    - 
+      allowSingleLine: true
   camelcase: 1
-  comma-spacing:
-  - 2
-  - after: true
-    before: false
-  comma-style:
-  - 2
-  - last
-  complexity:
-  - 2
-  - 5
-  computed-property-spacing:
-  - 2
-  - never
+  comma-spacing: 
+    - 2
+    - 
+      after: true
+      before: false
+  comma-style: 
+    - 2
+    - last
+  complexity: 
+    - 2
+    - 5
+  computed-property-spacing: 
+    - 2
+    - never
   consistent-return: 2
-  consistent-this:
-  - 1
-  - self
+  consistent-this: 
+    - 1
+    - self
   constructor-super: 2
-  curly:
-  - 2
-  - multi-line
+  curly: 
+    - 2
+    - multi-line
   default-case: 0
-  dot-location:
-  - 2
-  - property
-  eqeqeq:
-  - 2
-  - smart
-  generator-star-spacing:
-  - 2
-  - after: false
-    before: true
+  dot-location: 
+    - 2
+    - property
+  eqeqeq: 
+    - 2
+    - smart
+  generator-star-spacing: 
+    - 2
+    - 
+      after: false
+      before: true
   guard-for-in: 1
-  indent:
-  - 1
-  - 2
-  - SwitchCase: 1
+  indent: 
+    - 1
+    - 2
+    - 
+      SwitchCase: 1
   init-declarations: 0
   jsx-quotes: 1
-  max-depth:
-  - 1
-  - 3
-  max-len:
-  - 1
-  - 120
-  - 2
-  max-nested-callbacks:
-  - 2
-  - 3
-  max-params:
-  - 2
-  - 3
-  max-statements:
-  - 1
-  - 20
+  keyword-spacing: 0
+  max-depth: 
+    - 1
+    - 3
+  max-len: 
+    - 1
+    - 120
+    - 2
+  max-nested-callbacks: 
+    - 2
+    - 3
+  max-params: 
+    - 2
+    - 3
+  max-statements: 
+    - 1
+    - 20
   new-parens: 1
   no-alert: 0
   no-array-constructor: 2
-  no-arrow-condition: 2
   no-caller: 2
   no-case-declarations: 1
   no-catch-shadow: 2
   no-class-assign: 2
+  no-confusing-arrow: 1
   no-console: 0
   no-const-assign: 2
+  no-constant-condition: 1
   no-debugger: 0
   no-div-regex: 2
   no-dupe-class-members: 2
   no-else-return: 1
-  no-empty-label: 2
   no-empty-pattern: 2
   no-eq-null: 0
   no-eval: 2
@@ -126,7 +131,11 @@ rules:
   no-invalid-this: 2
   no-iterator: 2
   no-label-var: 2
-  no-labels: 0
+  no-labels: 
+    - 2
+    - 
+      allowLoop: true
+      allowSwitch: false
   no-lone-blocks: 2
   no-lonely-if: 1
   no-loop-func: 2
@@ -157,44 +166,42 @@ rules:
   no-undef: 2
   no-undef-init: 2
   no-unneeded-ternary: 2
-  no-unused-expressions:
-  - 2
-  - allowShortCircuit: true
-    allowTernary: true
+  no-unused-expressions: 
+    - 2
+    - 
+      allowShortCircuit: true
+      allowTernary: true
   no-use-before-define: 2
   no-useless-call: 2
   no-useless-concat: 1
   no-void: 2
   no-with: 2
-  operator-linebreak:
-  - 2
-  - before
-  quote-props:
-  - 2
-  - as-needed
-  quotes:
-  - 1
-  - single
-  - avoid-escape
-  radix:
-  - 2
-  - always
+  operator-linebreak: 
+    - 2
+    - before
+  quote-props: 
+    - 2
+    - as-needed
+  quotes: 
+    - 1
+    - single
+    - avoid-escape
+  radix: 
+    - 2
+    - always
   require-yield: 2
-  space-before-function-paren:
-  - 1
-  - never
+  space-before-function-paren: 
+    - 1
+    - never
   space-before-keywords: 0
-  space-in-parens:
-  - 1
-  - never
-  space-return-throw-case: 2
-  strict:
-  - 2
-  - global
-  wrap-iife:
-  - 2
-  - inside
+  space-in-parens: 
+    - 1
+    - never
+  wrap-iife: 
+    - 2
+    - inside
   wrap-regex: 2
-  yoda:
-  - 2
-  - never
+  yoda: 
+    - 2
+    - never
+
