@@ -4,4 +4,4 @@
  * description: $description$
  */
 
-'use strict';
+'use strict'

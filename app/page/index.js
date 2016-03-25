@@ -4,10 +4,10 @@
  * description: page
  */
 
-'use strict';
+'use strict'
 
-require('./index.scss');
+require('./index.scss')
 
-let msg = require('./msg.json').msg;
+let msg = require('./msg.json').msg
 
-console.log(msg);
+console.log(msg)
