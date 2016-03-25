@@ -17,6 +17,7 @@
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.10.0",
     "css-loader": "^0.23.1",
+    "cz-conventional-changelog": "^1.1.5",
     "ejs": "^2.4.1",
     "ejs-loader": "^0.2.1",
     "eslint": "^2.2.0",
@@ -94,5 +95,10 @@
     "dev": "node ./lib/server.js",
     "test": "karma start lib/karma.conf.js --single-run"
   },
-  "version": "1.1.0"
+  "version": "1.1.0",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
