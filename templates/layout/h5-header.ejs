@@ -51,51 +51,9 @@ page.pagejs = pagejs;
     <% if(pagecss != 'empty'){%>
     <link rel="stylesheet" href="app/<%=pagecss%>">
     <%}%>
+    <!-- 引用自：http://g.alicdn.com/tbc/m-base/0.1.9/index.js -->
     <script>
-      (function () {
-        var dpr, rem, scale;
-        var docEl = document.documentElement;
-        var fontEl = document.createElement('style');
-        var metaEl = document.querySelector('meta[name="viewport"]');
-        var win = window;
-
-        dpr = win.devicePixelRatio || 1;
-        rem = docEl.clientWidth * dpr / 10;
-        scale = 1 / dpr;
-
-        // 设置viewport，进行缩放，达到高清效果
-        metaEl.setAttribute('content', 'width=' + dpr * docEl.clientWidth + ',initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
-
-        // 设置data-dpr属性，留作的css hack之用
-        docEl.setAttribute('data-dpr', dpr);
-
-        // 动态写入样式
-        docEl.firstElementChild.appendChild(fontEl);
-
-        // 给js调用的，某一dpr下rem和px之间的转换函数
-        win.rem2px = function(v) {
-            v = parseFloat(v);
-            return v * rem;
-        };
-        win.px2rem = function(v) {
-            v = parseFloat(v);
-            return v / rem;
-        };
-
-        var resetRem = function () {
-          win.setTimeout(function () {
-            rem = docEl.clientWidth / 10;
-            fontEl.innerHTML = 'html{font-size:' + rem + 'px!important;}';
-          }, 300)
-        }
-
-        win.onresize = resetRem
-
-        win.dpr = dpr;
-        win.rem = rem;
-
-        resetRem()
-      }())
+!function(a){function b(){var b=f.clientWidth,c="}";!navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)&&b>1024&&(b=640,c=";max-width:"+b+"px;margin-right:auto!important;margin-left:auto!important;}"),a.rem=b/10,/ZTE U930_TD/.test(navigator.userAgent)&&(a.rem=1.13*a.rem),h.innerHTML="html{font-size:"+a.rem+"px!important;}body{font-size:"+12*(b/320)+"px"+c}var c,d,e,f=document.documentElement,g=document.querySelector('meta[name="viewport"]'),h=document.createElement("style"),c=a.devicePixelRatio||1;if(d=1/c,!g)return void console.warn('\u8bf7\u8bbe\u7f6e\u9ed8\u8ba4viewport\u4e3a\uff1a<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />');if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){var i=f.clientWidth;375===i&&g.setAttribute("content","user-scalable=no"),g.setAttribute("content","width="+c*i+",initial-scale="+d+",maximum-scale="+d+", minimum-scale="+d+",user-scalable=no")}else{var j=navigator.userAgent.match(/Android[\S\s]+AppleWebkit\/?(\d{3})/i);!j||j&&j[1]>534?g.setAttribute("content","target-densitydpi=device-dpi,width=device-width,user-scalable=no,initial-scale="+d+",maximum-scale="+d+", minimum-scale="+d):c=1}f.firstElementChild.appendChild(h),f.setAttribute("data-dpr",c),a.dpr=c,a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);
     </script>
   </head>
   <body>
