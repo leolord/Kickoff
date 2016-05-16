@@ -10,10 +10,10 @@ html(lang='zh-cms-Hans')
     - page.name     = '页面入口文件名'
 
   block assets
-    - commoncss = (typeof build !== 'undefined' && build.common && build.common.css) || 'common.css';
-    - commonjs  = (typeof build !== 'undefined' && build.common && build.common.js)  || 'common.js';
-    - pagecss   = (typeof build !== 'undefined' && build[page.name] && build[page.name].css)  || page.name+'.css';
-    - pagejs    = (typeof build !== 'undefined' && build[page.name] && build[page.name].js)  || page.name+'.js';
+    - var commoncss = (typeof build !== 'undefined' && build.common && build.common.css) || 'common.css';
+    - var commonjs  = (typeof build !== 'undefined' && build.common && build.common.js)  || 'common.js';
+    - var pagecss   = (typeof build !== 'undefined' && build[page.name] && build[page.name].css)  || page.name+'.css';
+    - var pagejs    = (typeof build !== 'undefined' && build[page.name] && build[page.name].js)  || page.name+'.js';
 
   head
     meta(charset='utf-8')
@@ -21,19 +21,19 @@ html(lang='zh-cms-Hans')
     meta(http-equiv="X-UA-Compatible",content="IE=edge,chrome=1")
     meta(name="renderer",content="webkit")
     if page.author
-      meta(name="author",content="#{page.author}")
+      meta(name="author",content=page.author)
     meta(name="browsermode",content="application")
     if page.desc
-      meta(name="description", content="#{page.desc}")
+      meta(name="description", content=page.desc)
     meta(name="full-screen",content="yes")
     if page.keywords
-      meta(name="keywords",content="#{page.keywords}")
+      meta(name="keywords",content=page.keywords)
     meta(name="robots",content="index,follow")
     block style
       if !debug && commoncss != 'empty'
-        link(rel="stylesheet",href="app/#{commoncss}")
+        link(rel="stylesheet",href="app/" + commoncss)
       if pagecss != 'empty'
-        link(rel="stylesheet",href="app/#{pagecss}")
+        link(rel="stylesheet",href="app/" + pagecss)
     title #{page.title}
     base(target="_blank")
   body
@@ -44,7 +44,7 @@ html(lang='zh-cms-Hans')
 
     block footer
       if !debug && commonjs != 'empty'
-        script(src="app/#{commonjs}")
+        script(src="app/"+commonjs)
       if pagejs != 'empty'
-        script(src="app/#{pagejs}")
+        script(src="app/"+pagejs)
 
